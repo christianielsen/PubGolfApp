@@ -6,19 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <TextView
-        android:id="@+id/text_home"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <TextView-->
+<!--        android:id="@+id/text_home"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <TableLayout
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,9 +27,10 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="40dp"
+        android:layout_margin="0dp"
         android:background="@android:color/white">
 
+<!--Top column-->
         <TableRow android:background="@color/colorGreen">
 
             <TextView
@@ -37,62 +38,104 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:gravity="center_horizontal"
-                android:padding="10sp"
+                android:padding="5sp"
                 android:text="@string/col1"
                 android:textColor="@android:color/white"
-                android:textSize="14sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:gravity="center_horizontal"
-                android:padding="10sp"
+                android:padding="5sp"
                 android:text="@string/col2"
                 android:textColor="@android:color/white"
-                android:textSize="14sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:gravity="center_horizontal"
-                android:padding="10sp"
+                android:padding="5sp"
                 android:text="@string/col3"
                 android:textColor="@android:color/white"
-                android:textSize="14sp" />
-        </TableRow>
+                android:textSize="20sp" />
 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/col4"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/col5"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+        </TableRow>
+<!--Row 1-->
         <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/hole1"
+                android:textSize="16sp" />
 
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:gravity="center_horizontal"
-                android:padding="10sp"
-                android:text="@string/row1"
-                android:textSize="12sp" />
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp"
+                android:background="@drawable/shape"/>
 
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:gravity="center_horizontal"
-                android:padding="10sp"
-                android:text="@string/row2"
-                android:textSize="12sp" />
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp"
+                android:background="@drawable/shape"/>
 
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:gravity="center_horizontal"
-                android:padding="10sp"
-                android:text="@string/row3"
-                android:textSize="12sp" />
-        </TableRow>
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp"
+                android:background="@drawable/shape"/>
 
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp"
+                android:background="@drawable/shape"/>
+        </TableRow>
+<!--Row 2-->
         <TableRow>
 
             <TextView
@@ -100,29 +143,51 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:gravity="center_horizontal"
-                android:padding="10sp"
-                android:text="@string/row1"
-                android:textSize="12sp" />
+                android:padding="5sp"
+                android:text="@string/hole2"
+                android:textSize="16sp" />
 
-            <TextView
+            <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:gravity="center_horizontal"
-                android:padding="10sp"
-                android:text="@string/row2"
-                android:textSize="12sp" />
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp"
+                android:background="@drawable/shape"/>
 
-            <TextView
+            <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:gravity="center_horizontal"
-                android:padding="10sp"
-                android:text="@string/row3"
-                android:textSize="12sp" />
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp"
+                android:background="@drawable/shape"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp"
+                android:background="@drawable/shape"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp"
+                android:background="@drawable/shape"/>
         </TableRow>
-
+<!--Row 3-->
         <TableRow>
 
             <TextView
@@ -130,29 +195,51 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:gravity="center_horizontal"
-                android:padding="10sp"
-                android:text="@string/row1"
-                android:textSize="12sp" />
+                android:padding="5sp"
+                android:text="@string/hole3"
+                android:textSize="16sp" />
 
-            <TextView
+            <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:gravity="center_horizontal"
-                android:padding="10sp"
-                android:text="@string/row2"
-                android:textSize="12sp" />
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp"
+                android:background="@drawable/shape"/>
 
-            <TextView
+            <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:gravity="center_horizontal"
-                android:padding="10sp"
-                android:text="@string/row3"
-                android:textSize="12sp" />
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp"
+                android:background="@drawable/shape"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp"
+                android:background="@drawable/shape"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp"
+                android:background="@drawable/shape"/>
         </TableRow>
-
+<!--Row 4-->
         <TableRow>
 
             <TextView
@@ -160,27 +247,333 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:gravity="center_horizontal"
-                android:padding="10sp"
-                android:text="@string/row1"
-                android:textSize="12sp" />
+                android:padding="5sp"
+                android:text="@string/hole4"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+        </TableRow>
+<!--Row 5-->
+        <TableRow>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:gravity="center_horizontal"
-                android:padding="10sp"
-                android:text="@string/row2"
-                android:textSize="12sp" />
+                android:padding="5sp"
+                android:text="@string/hole5"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+        </TableRow>
+<!--Row 6-->
+        <TableRow>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:gravity="center_horizontal"
-                android:padding="10sp"
-                android:text="@string/row3"
-                android:textSize="12sp" />
+                android:padding="5sp"
+                android:text="@string/hole6"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+        </TableRow>
+<!--Row 7-->
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/hole7"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+        </TableRow>
+<!--Row 8-->
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/hole8"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+        </TableRow>
+<!--Row 9-->
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/hole9"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+        </TableRow>
+<!--Bottow row-->
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/total"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                android:padding="5sp"
+                android:text="@string/nothing"
+                android:textSize="16sp" />
         </TableRow>
 
     </TableLayout>
