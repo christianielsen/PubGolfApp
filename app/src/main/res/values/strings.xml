@@ -3,4 +3,12 @@
     <string name="title_home">Home</string>
     <string name="title_map">Map</string>
     <string name="title_info">Info</string>
+
+    <string name="col1">Name 1</string>
+    <string name="col2">Name 2</string>
+    <string name="col3">Name 3</string>
+    <string name="row1">test 1</string>
+    <string name="row2">test 2</string>
+    <string name="row3">test 3</string>
+
 </resources>
