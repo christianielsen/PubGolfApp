@@ -6,31 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-<!--    <TextView-->
-<!--        android:id="@+id/text_home"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="8dp"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:layout_marginEnd="8dp"-->
-<!--        android:textAlignment="center"-->
-<!--        android:textSize="20sp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
     <TableLayout
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
+        android:id="@+id/tableLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="0dp"
-        android:background="@android:color/white">
 
-<!--Top column-->
+        android:layout_margin="0dp"
+        android:layout_marginBottom="132dp"
+        android:background="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--Top column-->
         <TableRow android:background="@color/colorGreen">
 
             <TextView
@@ -83,7 +73,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
         </TableRow>
-<!--Row 1-->
+        <!--Row 1-->
         <TableRow>
 
             <TextView
@@ -96,46 +86,52 @@
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/drink1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
                 android:padding="5sp"
                 android:text="@string/nothing"
-                android:textSize="16sp"
-                android:background="@drawable/shape"/>
+                android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/par1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
+                android:inputType="number"
                 android:padding="5sp"
                 android:text="@string/nothing"
-                android:textSize="16sp"
-                android:background="@drawable/shape"/>
+                android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/score1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
+                android:inputType="number"
                 android:padding="5sp"
                 android:text="@string/nothing"
-                android:textSize="16sp"
-                android:background="@drawable/shape"/>
+                android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/rule1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
                 android:padding="5sp"
                 android:text="@string/nothing"
-                android:textSize="16sp"
-                android:background="@drawable/shape"/>
+                android:textSize="16sp" />
         </TableRow>
-<!--Row 2-->
+        <!--Row 2-->
         <TableRow>
 
             <TextView
@@ -148,46 +144,52 @@
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/drink2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
                 android:padding="5sp"
                 android:text="@string/nothing"
-                android:textSize="16sp"
-                android:background="@drawable/shape"/>
+                android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/par2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
+                android:inputType="number"
                 android:padding="5sp"
                 android:text="@string/nothing"
-                android:textSize="16sp"
-                android:background="@drawable/shape"/>
+                android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/score2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
+                android:inputType="number"
                 android:padding="5sp"
                 android:text="@string/nothing"
-                android:textSize="16sp"
-                android:background="@drawable/shape"/>
+                android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/rule2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
                 android:padding="5sp"
                 android:text="@string/nothing"
-                android:textSize="16sp"
-                android:background="@drawable/shape"/>
+                android:textSize="16sp" />
         </TableRow>
-<!--Row 3-->
+        <!--Row 3-->
         <TableRow>
 
             <TextView
@@ -200,46 +202,52 @@
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/drink3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
                 android:padding="5sp"
                 android:text="@string/nothing"
-                android:textSize="16sp"
-                android:background="@drawable/shape"/>
+                android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/par3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
+                android:inputType="number"
                 android:padding="5sp"
                 android:text="@string/nothing"
-                android:textSize="16sp"
-                android:background="@drawable/shape"/>
+                android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/score3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
+                android:inputType="number"
                 android:padding="5sp"
                 android:text="@string/nothing"
-                android:textSize="16sp"
-                android:background="@drawable/shape"/>
+                android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/rule3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
                 android:padding="5sp"
                 android:text="@string/nothing"
-                android:textSize="16sp"
-                android:background="@drawable/shape"/>
+                android:textSize="16sp" />
         </TableRow>
-<!--Row 4-->
+        <!--Row 4-->
         <TableRow>
 
             <TextView
@@ -252,42 +260,52 @@
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/drink4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
                 android:padding="5sp"
                 android:text="@string/nothing"
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/par4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
+                android:inputType="number"
                 android:padding="5sp"
                 android:text="@string/nothing"
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/score4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
+                android:inputType="number"
                 android:padding="5sp"
                 android:text="@string/nothing"
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/rule4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
                 android:padding="5sp"
                 android:text="@string/nothing"
                 android:textSize="16sp" />
         </TableRow>
-<!--Row 5-->
+        <!--Row 5-->
         <TableRow>
 
             <TextView
@@ -300,42 +318,52 @@
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/drink5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
                 android:padding="5sp"
                 android:text="@string/nothing"
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/par5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
+                android:inputType="number"
                 android:padding="5sp"
                 android:text="@string/nothing"
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/score5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
+                android:inputType="number"
                 android:padding="5sp"
                 android:text="@string/nothing"
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/rule5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
                 android:padding="5sp"
                 android:text="@string/nothing"
                 android:textSize="16sp" />
         </TableRow>
-<!--Row 6-->
+        <!--Row 6-->
         <TableRow>
 
             <TextView
@@ -348,42 +376,52 @@
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/drink6"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
                 android:padding="5sp"
                 android:text="@string/nothing"
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/par6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
+                android:inputType="number"
                 android:padding="5sp"
                 android:text="@string/nothing"
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/score6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
+                android:inputType="number"
                 android:padding="5sp"
                 android:text="@string/nothing"
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/rule6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
                 android:padding="5sp"
                 android:text="@string/nothing"
                 android:textSize="16sp" />
         </TableRow>
-<!--Row 7-->
+        <!--Row 7-->
         <TableRow>
 
             <TextView
@@ -396,42 +434,52 @@
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/drink7"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
                 android:padding="5sp"
                 android:text="@string/nothing"
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/par7"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
+                android:inputType="number"
                 android:padding="5sp"
                 android:text="@string/nothing"
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/score7"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
+                android:inputType="number"
                 android:padding="5sp"
                 android:text="@string/nothing"
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/rule7"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
                 android:padding="5sp"
                 android:text="@string/nothing"
                 android:textSize="16sp" />
         </TableRow>
-<!--Row 8-->
+        <!--Row 8-->
         <TableRow>
 
             <TextView
@@ -444,42 +492,52 @@
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/drink8"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
                 android:padding="5sp"
                 android:text="@string/nothing"
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/par8"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
+                android:inputType="number"
                 android:padding="5sp"
                 android:text="@string/nothing"
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/score8"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
+                android:inputType="number"
                 android:padding="5sp"
                 android:text="@string/nothing"
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/rule8"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
                 android:padding="5sp"
                 android:text="@string/nothing"
                 android:textSize="16sp" />
         </TableRow>
-<!--Row 9-->
+        <!--Row 9-->
         <TableRow>
 
             <TextView
@@ -492,42 +550,53 @@
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/drink9"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
                 android:padding="5sp"
                 android:text="@string/nothing"
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/par9"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
+                android:inputType="number"
                 android:padding="5sp"
                 android:text="@string/nothing"
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/score9"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
+                android:inputType="number"
                 android:padding="5sp"
                 android:text="@string/nothing"
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/rule9"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:background="@drawable/shape"
                 android:gravity="center_horizontal"
                 android:padding="5sp"
                 android:text="@string/nothing"
                 android:textSize="16sp" />
         </TableRow>
-<!--Bottow row-->
+
+        <!--Bottow row-->
         <TableRow>
 
             <TextView
@@ -577,5 +646,16 @@
         </TableRow>
 
     </TableLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="132dp"
+        android:text="Save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
