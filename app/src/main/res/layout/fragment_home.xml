@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Scorecard"
+        android:textColor="@color/purple_500"
+        android:textSize="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TableLayout
         android:id="@+id/tableLayout"
         android:layout_width="match_parent"
@@ -13,6 +25,7 @@
 
         android:layout_margin="0dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginBottom="113dp"
         android:background="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/button"
@@ -22,7 +35,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <!--Top column-->
-        <TableRow android:background="@color/colorGreen">
+        <TableRow android:background="@color/purple_700">
 
             <TextView
                 android:layout_width="0dp"
@@ -75,7 +88,7 @@
                 android:textSize="20sp" />
         </TableRow>
         <!--Row 1-->
-        <TableRow>
+        <TableRow android:textColor="@color/black">
 
             <TextView
                 android:layout_width="0dp"
@@ -627,16 +640,18 @@
                 android:text="@string/nothing"
                 android:textSize="16sp" />
 
-            <EditText
+            <TextView
+                android:id="@+id/total"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:gravity="center_horizontal"
                 android:padding="5sp"
                 android:text="@string/nothing"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
 
-            <EditText
+            <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
@@ -650,8 +665,8 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="138dp"
+        android:layout_height="67dp"
         android:layout_marginTop="113dp"
         android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"

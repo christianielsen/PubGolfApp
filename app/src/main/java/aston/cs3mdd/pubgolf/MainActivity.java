@@ -3,6 +3,8 @@ package aston.cs3mdd.pubgolf;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     String par1Str, par2Str, par3Str, par4Str, par5Str, par6Str, par7Str, par8Str, par9Str;
     String score1Str, score2Str, score3Str, score4Str, score5Str, score6Str, score7Str, score8Str, score9Str;
     String rule1Str, rule2Str, rule3Str, rule4Str, rule5Str, rule6Str, rule7Str, rule8Str, rule9Str;
+    TextView total;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
         rule7 = findViewById(R.id.rule7);
         rule8 = findViewById(R.id.rule8);
         rule9 = findViewById(R.id.rule9);
+
+        total = findViewById(R.id.total);
 
         button = findViewById(R.id.button);
         sp = getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
@@ -179,14 +184,32 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString("rule8", rule8Str);
                 editor.putString("rule9", rule9Str);
 
+
                 editor.apply();
                 editor.commit();
+
+                //Sum calculation for score
+
+                int score1 = Integer.parseInt(score1Str);
+                int score2 = Integer.parseInt(score2Str);
+                int score3 = Integer.parseInt(score3Str);
+                int score4 = Integer.parseInt(score4Str);
+                int score5 = Integer.parseInt(score5Str);
+                int score6 = Integer.parseInt(score6Str);
+                int score7 = Integer.parseInt(score7Str);
+                int score8 = Integer.parseInt(score8Str);
+                int score9 = Integer.parseInt(score9Str);
+
+                int sum = score1 + score2 + score3 + score4 + score5 + score6 + score7 + score8 + score9;
+                total.setText(Integer.toString(sum));
 
             }
         });
 
-        TextView d1, d2, d3, d4, d5, d6, d7, d8, d9, p1, p2, p3, p4, p5, p6, p7, p8, p9, s1, s2, s3, s4, s5, s6, s7, s8, s9, r1, r2, r3, r4, r5, r6, r7, r8, r9;
-
+        TextView d1, d2, d3, d4, d5, d6, d7, d8, d9,
+                p1, p2, p3, p4, p5, p6, p7, p8, p9,
+                s1, s2, s3, s4, s5, s6, s7, s8, s9,
+                r1, r2, r3, r4, r5, r6, r7, r8, r9;
 
         d1 = findViewById(R.id.drink1);
         d2 = findViewById(R.id.drink2);
@@ -227,6 +250,7 @@ public class MainActivity extends AppCompatActivity {
         r7 = findViewById(R.id.rule7);
         r8 = findViewById(R.id.rule8);
         r9 = findViewById(R.id.rule9);
+
 
         SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
         String drink1 = sp.getString("drink1", "");
@@ -308,6 +332,6 @@ public class MainActivity extends AppCompatActivity {
         r7.setText(rule7);
         r8.setText(rule8);
         r9.setText(rule9);
-
     }
 }
+
