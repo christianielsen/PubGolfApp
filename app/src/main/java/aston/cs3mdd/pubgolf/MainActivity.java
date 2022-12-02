@@ -3,20 +3,18 @@ package aston.cs3mdd.pubgolf;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import aston.cs3mdd.pubgolf.databinding.ActivityMainBinding;
 
@@ -50,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+
 
         drink1 = findViewById(R.id.drink1);
         drink2 = findViewById(R.id.drink2);
@@ -310,4 +310,5 @@ public class MainActivity extends AppCompatActivity {
         r9.setText(rule9);
 
     }
+
 }
