@@ -10,29 +10,31 @@
         android:id="@+id/cardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/textview_first"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/autocomplete_fragment"
             android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:layout="@layout/places_autocomplete_fragment" />
+
+        <Button
+            android:id="@+id/btLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="80dp"
+            android:text="Get Location" />
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/textview_first"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/google_map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="32dp"
-        android:text="test"
-        android:textSize="50sp"
         app:layout_constraintTop_toTopOf="parent" />
-    <!--    <fragment-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:id="@+id/google_map"-->
-    <!--        android:name="com.google.android.gms.maps.SupportMapFragment"/>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
