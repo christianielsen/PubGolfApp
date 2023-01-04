@@ -10,6 +10,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,19 +19,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -44,7 +36,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
@@ -52,14 +43,17 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
 
 import aston.cs3mdd.pubgolf.R;
 import aston.cs3mdd.pubgolf.databinding.FragmentDashboardBinding;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DashboardFragment extends Fragment implements OnMapReadyCallback {
 
@@ -67,7 +61,7 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap;
 
     Button btLocation, btRestaurant;
-    TextView tvLatitude, tvLongitude;
+    TextView tvLatitude, tvLongitude, textview2;
     FusedLocationProviderClient client;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -106,6 +100,7 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
+        textview2 = root.findViewById(R.id.textView2);
         btRestaurant = root.findViewById(R.id.btRestaurant);
         btLocation = root.findViewById(R.id.btLocation);
         tvLatitude = root.findViewById(R.id.tvLatitude);
@@ -152,20 +147,29 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
                 // Instantiate the RequestQueue.
-                RequestQueue queue = Volley.newRequestQueue(getActivity());
-                String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=52.573012,-1.173310&radius=500&type=restaurant&key=AIzaSyAE1O94eM9xi9_NR9jEZwm9xuKWUFyWCOU";
-
-//                String placesSearchStr = "https://maps.googleapis.com/maps/api/place/nearbysearch/" +
-//                        "json?location=" + lat + "," + lng +
-//                        "&radius=1000&sensor=true" +
-//                        "&types=hospital|health" +
-//                        "&key=AIzaSyAEmcult29ulZu5eiEg7_0FKUYmToOHmAk";//ADD KEY
+//                RequestQueue queue = Volley.newRequestQueue(getActivity());
+//                String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=52.573012,-1.173310&radius=500&type=restaurant&key=AIzaSyAE1O94eM9xi9_NR9jEZwm9xuKWUFyWCOU";
+//
+////                String placesSearchStr = "https://maps.googleapis.com/maps/api/place/nearbysearch/" +
+////                        "json?location=" + lat + "," + lng +
+////                        "&radius=1000&sensor=true" +
+////                        "&types=hospital|health" +
+////                        "&key=AIzaSyAEmcult29ulZu5eiEg7_0FKUYmToOHmAk";//ADD KEY
                 // Request a string response from the provided URL.
 //                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
 //                        new Response.Listener<String>() {
 //                            @Override
 //                            public void onResponse(String response) {
 //                                Toast.makeText(getActivity(), response, Toast.LENGTH_LONG).show();
+//
+//                                Gson gson = new Gson();
+//                                Result result = gson.fromJson(new JsonParser().parse(response), Result.class);
+//
+////                                for(Result r : result) {
+////                                    Log.i("AAAAA", r.getGeometry().getLocation().getLat().toString());
+////                                }
+//                                Log.i("AAAAA", response);
+//
 //                            }
 //                        }, new Response.ErrorListener() {
 //                    @Override
@@ -173,28 +177,71 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
 //                        Toast.makeText(getActivity(), "Error occured", Toast.LENGTH_LONG).show();
 //                    }
 //                });
+//
+////                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+////                    @Override
+////                    public void onResponse(JSONObject response) {
+////                        String location = "";
+////                        try {
+////                            JSONArray info = response.getJSONArray("results");
+////                            location = info.getString();
+////                        } catch (JSONException e) {
+////                            e.printStackTrace();
+////                        }
+////                        Toast.makeText(getActivity(), "Location = " + location, Toast.LENGTH_LONG).show();
+////                    }
+////                }, new Response.ErrorListener() {
+////                    @Override
+////                    public void onErrorResponse(VolleyError error) {
+////                        Toast.makeText(getActivity(), "Error", Toast.LENGTH_LONG).show();
+////                    }
+////                });
+//
+//
+                // Add the request to the RequestQueue.
+//                queue.add(stringRequest);
 
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                //Retrofit Builder
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("https://maps.googleapis.com/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                //Instance for interface
+                MyAPICall myAPICall = retrofit.create(MyAPICall.class);
+                Call<ResultsItem> call = myAPICall.getData();
+
+                call.enqueue(new Callback<ResultsItem>() {
                     @Override
-                    public void onResponse(JSONObject response) {
-                        String location = "";
-                        try {
-                            JSONArray info = response.getJSONArray("results");
-                            location = info.getString();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                    public void onResponse(Call<ResultsItem> call, Response<ResultsItem> response) {
+                        //Checking for the response
+                        Toast.makeText(getActivity(), response.toString(), Toast.LENGTH_LONG).show();
+
+//                        if (response.code() != 200) {
+//                            textview2.setText("No connection");
+//                            return;
+//                        }
+
+//                        String jsony = "";
+//
+//                        jsony = "ID = " + response.body().getPlaceId() +
+//                                "\n Name = " + response.body().getName();
+
+//                        Log.i("AJB", response.body().getName());
+                        if(response.isSuccessful()) {
+
+                            textview2.setText(response.body().getIcon());
+                            Log.i("AJB", " " + response.);
                         }
-                        Toast.makeText(getActivity(), "Location = " + location, Toast.LENGTH_LONG).show();
                     }
-                }, new Response.ErrorListener() {
+
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getActivity(), "Error", Toast.LENGTH_LONG).show();
+                    public void onFailure(Call<ResultsItem> call, Throwable t) {
+                        textview2.append(t.toString());
                     }
                 });
 
-                // Add the request to the RequestQueue.
-                queue.add(request);
+
             }
         });
 
