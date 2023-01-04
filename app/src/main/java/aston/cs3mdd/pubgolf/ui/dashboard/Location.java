@@ -1,28 +1,32 @@
+
 package aston.cs3mdd.pubgolf.ui.dashboard;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Location{
+public class Location {
 
-	@SerializedName("lng")
-	private Object lng;
+    @SerializedName("lat")
+    @Expose
+    private Double lat;
+    @SerializedName("lng")
+    @Expose
+    private Double lng;
 
-	@SerializedName("lat")
-	private Object lat;
+    public Double getLat() {
+        return lat;
+    }
 
-	public void setLng(Object lng){
-		this.lng = lng;
-	}
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
 
-	public Object getLng(){
-		return lng;
-	}
+    public Double getLng() {
+        return lng;
+    }
 
-	public void setLat(Object lat){
-		this.lat = lat;
-	}
+    public void setLng(Double lng) {
+        this.lng = lng;
+    }
 
-	public Object getLat(){
-		return lat;
-	}
 }

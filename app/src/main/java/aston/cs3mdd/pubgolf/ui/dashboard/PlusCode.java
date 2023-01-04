@@ -1,28 +1,32 @@
+
 package aston.cs3mdd.pubgolf.ui.dashboard;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PlusCode{
+public class PlusCode {
 
-	@SerializedName("compound_code")
-	private String compoundCode;
+    @SerializedName("compound_code")
+    @Expose
+    private String compoundCode;
+    @SerializedName("global_code")
+    @Expose
+    private String globalCode;
 
-	@SerializedName("global_code")
-	private String globalCode;
+    public String getCompoundCode() {
+        return compoundCode;
+    }
 
-	public void setCompoundCode(String compoundCode){
-		this.compoundCode = compoundCode;
-	}
+    public void setCompoundCode(String compoundCode) {
+        this.compoundCode = compoundCode;
+    }
 
-	public String getCompoundCode(){
-		return compoundCode;
-	}
+    public String getGlobalCode() {
+        return globalCode;
+    }
 
-	public void setGlobalCode(String globalCode){
-		this.globalCode = globalCode;
-	}
+    public void setGlobalCode(String globalCode) {
+        this.globalCode = globalCode;
+    }
 
-	public String getGlobalCode(){
-		return globalCode;
-	}
 }

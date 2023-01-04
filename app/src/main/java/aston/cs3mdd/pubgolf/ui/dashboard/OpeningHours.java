@@ -1,17 +1,21 @@
+
 package aston.cs3mdd.pubgolf.ui.dashboard;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class OpeningHours{
+public class OpeningHours {
 
-	@SerializedName("open_now")
-	private boolean openNow;
+    @SerializedName("open_now")
+    @Expose
+    private Boolean openNow;
 
-	public void setOpenNow(boolean openNow){
-		this.openNow = openNow;
-	}
+    public Boolean getOpenNow() {
+        return openNow;
+    }
 
-	public boolean isOpenNow(){
-		return openNow;
-	}
+    public void setOpenNow(Boolean openNow) {
+        this.openNow = openNow;
+    }
+
 }

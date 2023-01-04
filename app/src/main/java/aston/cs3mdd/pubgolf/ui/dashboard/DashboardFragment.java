@@ -230,8 +230,8 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
 //                        Log.i("AJB", response.body().getName());
                         if(response.isSuccessful()) {
 
-                            textview2.setText(response.body().getIcon());
-                            Log.i("AJB", " " + response.);
+                            textview2.setText(response.body().getResults().get(0).getGeometry().getLocation().getLat().toString());
+//                            Log.i("AJB", " " + response.);
                         }
                     }
 
