@@ -1,5 +1,5 @@
 
-package aston.cs3mdd.pubgolf.ui.dashboard;
+package aston.cs3mdd.pubgolf.ui.dashboard.models;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

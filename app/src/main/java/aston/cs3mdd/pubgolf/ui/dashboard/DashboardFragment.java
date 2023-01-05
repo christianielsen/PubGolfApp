@@ -46,6 +46,7 @@ import java.util.Arrays;
 
 import aston.cs3mdd.pubgolf.R;
 import aston.cs3mdd.pubgolf.databinding.FragmentDashboardBinding;
+import aston.cs3mdd.pubgolf.ui.dashboard.models.ResultsItem;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.Call;
@@ -212,7 +213,7 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
                         .build();
 
                 //Instance for interface
-                MyAPICall myAPICall = retrofit.create(MyAPICall.class);
+                APICall APICall = retrofit.create(APICall.class);
 
                 String lat = String.valueOf(mCurrentLocation.getLatitude());
                 String lng = String.valueOf(mCurrentLocation.getLongitude());
@@ -222,7 +223,7 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
                 String keyword = "bar,restaurant";
                 String key = getActivity().getResources().getString(R.string.API_KEY);
 
-                Call<ResultsItem> call = myAPICall.getData(loc, radius, type, keyword, key);
+                Call<ResultsItem> call = APICall.getData(loc, radius, type, keyword, key);
                 Log.i("AJB", call.toString());
 
                 call.enqueue(new Callback<ResultsItem>() {

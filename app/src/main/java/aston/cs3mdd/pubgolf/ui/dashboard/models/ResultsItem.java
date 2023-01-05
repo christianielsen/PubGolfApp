@@ -1,5 +1,5 @@
 
-package aston.cs3mdd.pubgolf.ui.dashboard;
+package aston.cs3mdd.pubgolf.ui.dashboard.models;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
@@ -51,5 +51,6 @@ public class ResultsItem {
     public void setStatus(String status) {
         this.status = status;
     }
+
 
 }

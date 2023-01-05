@@ -1,10 +1,10 @@
 
-package aston.cs3mdd.pubgolf.ui.dashboard;
+package aston.cs3mdd.pubgolf.ui.dashboard.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Location {
+public class Northeast {
 
     @SerializedName("lat")
     @Expose
