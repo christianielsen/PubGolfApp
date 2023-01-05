@@ -10,18 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import aston.cs3mdd.pubgolf.databinding.FragmentNotificationsBinding;
+import aston.cs3mdd.pubgolf.databinding.FragmentInformationBinding;
 
 public class InfoFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
+    private FragmentInformationBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         InfoViewModel infoViewModel =
                 new ViewModelProvider(this).get(InfoViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentInformationBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textNotifications;

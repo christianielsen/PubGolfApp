@@ -1,4 +1,4 @@
-package aston.cs3mdd.pubgolf.ui.dashboard;
+package aston.cs3mdd.pubgolf.ui.map;
 
 import static com.google.android.gms.location.Priority.PRIORITY_BALANCED_POWER_ACCURACY;
 
@@ -45,15 +45,15 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 
 import aston.cs3mdd.pubgolf.R;
-import aston.cs3mdd.pubgolf.databinding.FragmentDashboardBinding;
-import aston.cs3mdd.pubgolf.ui.dashboard.models.ResultsItem;
+import aston.cs3mdd.pubgolf.databinding.FragmentMapBinding;
+import aston.cs3mdd.pubgolf.ui.map.models.ResultsItem;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class DashboardFragment extends Fragment implements OnMapReadyCallback {
+public class MapFragment extends Fragment implements OnMapReadyCallback {
     public static final String TAG = "AJB";
     private FusedLocationProviderClient fusedLocationClient;
     private Location mCurrentLocation;
@@ -62,7 +62,7 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
     private LocationRequest locationRequest;
     private LocationCallback locationCallback;
 
-    private FragmentDashboardBinding binding;
+    private FragmentMapBinding binding;
     private GoogleMap mMap;
 
     Button btLocation, btRestaurant;
@@ -71,7 +71,7 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentMapBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         SupportMapFragment supportMapFragment = (SupportMapFragment)

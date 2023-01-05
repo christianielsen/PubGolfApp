@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="aston.cs3mdd.pubgolf.ui.dashboard.DashboardFragment"
+        android:id="@+id/navigation_map"
+        android:name="aston.cs3mdd.pubgolf.ui.map.MapFragment"
         android:label="@string/title_map"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_map" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_information"
         android:name="aston.cs3mdd.pubgolf.ui.info.InfoFragment"
         android:label="@string/title_info"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_information" />
 </navigation>

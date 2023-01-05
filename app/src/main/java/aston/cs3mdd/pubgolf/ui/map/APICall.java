@@ -1,6 +1,6 @@
-package aston.cs3mdd.pubgolf.ui.dashboard;
+package aston.cs3mdd.pubgolf.ui.map;
 
-import aston.cs3mdd.pubgolf.ui.dashboard.models.ResultsItem;
+import aston.cs3mdd.pubgolf.ui.map.models.ResultsItem;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
