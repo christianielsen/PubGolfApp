@@ -3,15 +3,10 @@ package aston.cs3mdd.pubgolf.ui.dashboard;
 import static com.google.android.gms.location.Priority.PRIORITY_BALANCED_POWER_ACCURACY;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,9 +19,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -41,9 +34,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
@@ -51,10 +42,7 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 
 import org.jetbrains.annotations.NotNull;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 
 import aston.cs3mdd.pubgolf.R;
 import aston.cs3mdd.pubgolf.databinding.FragmentDashboardBinding;
@@ -195,6 +183,13 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
                     btLocation.setText("Stop Location Updates");
                     startLocationUpdates();
                     Log.i(TAG, "Updates started");
+                    double lat = mCurrentLocation.getLatitude();
+                    double lng = mCurrentLocation.getLongitude();
+                    LatLng latlng = new LatLng(lat, lng);
+                    mMap.clear();
+                    mMap.addMarker(new MarkerOptions().position(latlng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 15));
+
                 } else {
                     // stopping
                     requestingLocationUpdates = false;
@@ -343,8 +338,6 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
         tvLatitude.setText("Lat: " + location.getLatitude());
         tvLongitude.setText("Lon:" + location.getLongitude());
         LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());
-        mMap.addMarker(new MarkerOptions().position(latlng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 15));
 
     }
 
