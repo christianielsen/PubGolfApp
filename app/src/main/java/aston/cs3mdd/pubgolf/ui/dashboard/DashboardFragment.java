@@ -36,6 +36,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
@@ -43,7 +44,6 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONObject;
 
 import java.util.Arrays;
 
@@ -57,6 +57,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DashboardFragment extends Fragment implements OnMapReadyCallback {
 
+    private Location mCurrentLocation;
     private FragmentDashboardBinding binding;
     private GoogleMap mMap;
 
@@ -72,11 +73,11 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-//        SupportMapFragment supportMapFragment = (SupportMapFragment)
-//                getChildFragmentManager().findFragmentById(R.id.google_map);
+        SupportMapFragment supportMapFragment = (SupportMapFragment)
+                getChildFragmentManager().findFragmentById(R.id.google_map);
 
-//        supportMapFragment.getMapAsync(this);
-        String apiKey = "AIzaSyAE1O94eM9xi9_NR9jEZwm9xuKWUFyWCOU";
+        supportMapFragment.getMapAsync(this);
+        String apiKey = getActivity().getResources().getString(R.string.API_KEY);
         Places.initialize(getActivity().getApplicationContext(), apiKey);
 
 
@@ -146,61 +147,6 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
         btRestaurant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Instantiate the RequestQueue.
-//                RequestQueue queue = Volley.newRequestQueue(getActivity());
-//                String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=52.573012,-1.173310&radius=500&type=restaurant&key=AIzaSyAE1O94eM9xi9_NR9jEZwm9xuKWUFyWCOU";
-//
-////                String placesSearchStr = "https://maps.googleapis.com/maps/api/place/nearbysearch/" +
-////                        "json?location=" + lat + "," + lng +
-////                        "&radius=1000&sensor=true" +
-////                        "&types=hospital|health" +
-////                        "&key=AIzaSyAEmcult29ulZu5eiEg7_0FKUYmToOHmAk";//ADD KEY
-                // Request a string response from the provided URL.
-//                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-//                        new Response.Listener<String>() {
-//                            @Override
-//                            public void onResponse(String response) {
-//                                Toast.makeText(getActivity(), response, Toast.LENGTH_LONG).show();
-//
-//                                Gson gson = new Gson();
-//                                Result result = gson.fromJson(new JsonParser().parse(response), Result.class);
-//
-////                                for(Result r : result) {
-////                                    Log.i("AAAAA", r.getGeometry().getLocation().getLat().toString());
-////                                }
-//                                Log.i("AAAAA", response);
-//
-//                            }
-//                        }, new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Toast.makeText(getActivity(), "Error occured", Toast.LENGTH_LONG).show();
-//                    }
-//                });
-//
-////                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-////                    @Override
-////                    public void onResponse(JSONObject response) {
-////                        String location = "";
-////                        try {
-////                            JSONArray info = response.getJSONArray("results");
-////                            location = info.getString();
-////                        } catch (JSONException e) {
-////                            e.printStackTrace();
-////                        }
-////                        Toast.makeText(getActivity(), "Location = " + location, Toast.LENGTH_LONG).show();
-////                    }
-////                }, new Response.ErrorListener() {
-////                    @Override
-////                    public void onErrorResponse(VolleyError error) {
-////                        Toast.makeText(getActivity(), "Error", Toast.LENGTH_LONG).show();
-////                    }
-////                });
-//
-//
-                // Add the request to the RequestQueue.
-//                queue.add(stringRequest);
-
                 //Retrofit Builder
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl("https://maps.googleapis.com/")
@@ -209,29 +155,39 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
 
                 //Instance for interface
                 MyAPICall myAPICall = retrofit.create(MyAPICall.class);
-                Call<ResultsItem> call = myAPICall.getData();
+
+                String loc = ",";
+                String radius = "5000";
+                String type = "restaurant";
+                String keyword = "bar,restaurant";
+                String key = getActivity().getResources().getString(R.string.API_KEY);
+
+                Call<ResultsItem> call = myAPICall.getData(loc, radius, type, keyword, key);
+                Log.i("AJB", call.toString());
 
                 call.enqueue(new Callback<ResultsItem>() {
                     @Override
                     public void onResponse(Call<ResultsItem> call, Response<ResultsItem> response) {
                         //Checking for the response
-                        Toast.makeText(getActivity(), response.toString(), Toast.LENGTH_LONG).show();
 
-//                        if (response.code() != 200) {
-//                            textview2.setText("No connection");
-//                            return;
-//                        }
+                        if (response.code() != 200) {
+                            textview2.setText("No connection");
+                            return;
+                        }
 
-//                        String jsony = "";
-//
-//                        jsony = "ID = " + response.body().getPlaceId() +
-//                                "\n Name = " + response.body().getName();
+                        if (response.isSuccessful()) {
+                            //Loop through results
+                            for (int i = 0; i < response.body().getResults().size(); i++) {
+                                //Get LatLng and place name of each result
+                                Double lat = response.body().getResults().get(i).getGeometry().getLocation().getLat();
+                                Double lng = response.body().getResults().get(i).getGeometry().getLocation().getLng();
+                                String rName = response.body().getResults().get(i).getName();
+                                Log.i("AJB", lat.toString() + lng.toString());
+                                //Place markers with title
+                                LatLng rLocation = new LatLng(lat, lng);
+                                mMap.addMarker(new MarkerOptions().position(rLocation).title(rName));
 
-//                        Log.i("AJB", response.body().getName());
-                        if(response.isSuccessful()) {
-
-                            textview2.setText(response.body().getResults().get(0).getGeometry().getLocation().getLat().toString());
-//                            Log.i("AJB", " " + response.);
+                            }
                         }
                     }
 
@@ -383,6 +339,5 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         this.mMap = googleMap;
     }
-
 
 }
