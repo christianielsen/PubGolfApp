@@ -1,5 +1,7 @@
 package aston.cs3mdd.pubgolf.ui.dashboard;
 
+import static com.google.android.gms.location.Priority.PRIORITY_BALANCED_POWER_ACCURACY;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -18,7 +20,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -33,6 +38,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,7 +51,10 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 import aston.cs3mdd.pubgolf.R;
 import aston.cs3mdd.pubgolf.databinding.FragmentDashboardBinding;
@@ -56,19 +65,22 @@ import retrofit2.Callback;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DashboardFragment extends Fragment implements OnMapReadyCallback {
-
+    public static final String TAG = "AJB";
+    private FusedLocationProviderClient fusedLocationClient;
     private Location mCurrentLocation;
+
+    private boolean requestingLocationUpdates;
+    private LocationRequest locationRequest;
+    private LocationCallback locationCallback;
+
     private FragmentDashboardBinding binding;
     private GoogleMap mMap;
 
     Button btLocation, btRestaurant;
     TextView tvLatitude, tvLongitude, textview2;
-    FusedLocationProviderClient client;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        DashboardViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -77,9 +89,10 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
                 getChildFragmentManager().findFragmentById(R.id.google_map);
 
         supportMapFragment.getMapAsync(this);
+
+
         String apiKey = getActivity().getResources().getString(R.string.API_KEY);
         Places.initialize(getActivity().getApplicationContext(), apiKey);
-
 
         // Initialize the AutocompleteSupportFragment.
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
@@ -101,48 +114,98 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
-        textview2 = root.findViewById(R.id.textView2);
-        btRestaurant = root.findViewById(R.id.btRestaurant);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Log.i(TAG, "Location permissions have not been granted");
+            ActivityResultLauncher<String[]> locationPermissionRequest =
+                    registerForActivityResult(new ActivityResultContracts
+                                    .RequestMultiplePermissions(), result -> {
+                                Boolean fineLocationGranted = null;
+                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                                    fineLocationGranted = result.getOrDefault(
+                                            Manifest.permission.ACCESS_FINE_LOCATION, false);
+                                } else {
+                                    fineLocationGranted =
+                                            result.get(Manifest.permission.ACCESS_FINE_LOCATION) != null ?
+                                                    result.get(Manifest.permission.ACCESS_FINE_LOCATION) :
+                                                    false;
+                                }
+                                Boolean coarseLocationGranted = null;
+                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                                    coarseLocationGranted = result.getOrDefault(
+                                            Manifest.permission.ACCESS_COARSE_LOCATION, false);
+                                } else {
+                                    coarseLocationGranted =
+                                            result.get(Manifest.permission.ACCESS_COARSE_LOCATION) != null ?
+                                                    result.get(Manifest.permission.ACCESS_COARSE_LOCATION) :
+                                                    false;
+                                }
+                                if (fineLocationGranted != null && fineLocationGranted) {
+                                    Log.i(TAG, "Precise location access granted.");
+                                    this.getLastLocation();
+                                } else if (coarseLocationGranted != null && coarseLocationGranted) {
+                                    Log.i(TAG, "Only approximate location access granted.");
+                                    this.getLastLocation();
+                                } else {
+                                    Log.i(TAG, "No location access granted.");
+                                }
+                            }
+                    );
+// Before you perform the actual permission request, check whether your app
+// already has the permissions, and whether your app needs to show a permission
+// rationale dialog. For more details, see Request permissions.
+            locationPermissionRequest.launch(new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+            });
+        } else {
+            Log.i(TAG, "Location permissions already granted.");
+            getLastLocation();
+        }
+
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    Log.i(TAG, "Location Update: NO LOCATION");
+                    return;
+                }
+                for (Location location : locationResult.getLocations()) {
+                    // Update UI with location data
+                    Log.i(TAG, "Location Update: (" + location.getLatitude() +
+                            ", " + location.getLongitude() + ")");
+                    mCurrentLocation = location;
+                    updateUILocation(location);
+                }
+            }
+        };
+
         btLocation = root.findViewById(R.id.btLocation);
         tvLatitude = root.findViewById(R.id.tvLatitude);
         tvLongitude = root.findViewById(R.id.tvLongitude);
-
-        client = LocationServices.getFusedLocationProviderClient(getActivity());
 
         btLocation.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                // check condition
-                if (ContextCompat.checkSelfPermission(
-                        getActivity(),
-                        Manifest.permission
-                                .ACCESS_FINE_LOCATION)
-                        == PackageManager
-                        .PERMISSION_GRANTED
-                        && ContextCompat.checkSelfPermission(
-                        getActivity(),
-                        Manifest.permission
-                                .ACCESS_COARSE_LOCATION)
-                        == PackageManager
-                        .PERMISSION_GRANTED) {
-                    // When permission is granted
-                    // Call method
-                    getCurrentLocation();
+                if (requestingLocationUpdates == false) {
+                    // starting
+                    requestingLocationUpdates = true;
+                    btLocation.setText("Stop Location Updates");
+                    startLocationUpdates();
+                    Log.i(TAG, "Updates started");
                 } else {
-                    // When permission is not granted
-                    // Call method
-                    requestPermissions(
-                            new String[]{
-                                    Manifest.permission
-                                            .ACCESS_FINE_LOCATION,
-                                    Manifest.permission
-                                            .ACCESS_COARSE_LOCATION},
-                            100);
+                    // stopping
+                    requestingLocationUpdates = false;
+                    btLocation.setText("Start Location Updates");
+                    stopLocationUpdates();
+                    Log.i(TAG, "Updates stopped");
                 }
-
             }
         });
+
+        btRestaurant = root.findViewById(R.id.btRestaurant);
 
         btRestaurant.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,7 +219,9 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
                 //Instance for interface
                 MyAPICall myAPICall = retrofit.create(MyAPICall.class);
 
-                String loc = ",";
+                String lat = String.valueOf(mCurrentLocation.getLatitude());
+                String lng = String.valueOf(mCurrentLocation.getLongitude());
+                String loc = lat + "," + lng;
                 String radius = "5000";
                 String type = "restaurant";
                 String keyword = "bar,restaurant";
@@ -171,7 +236,7 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
                         //Checking for the response
 
                         if (response.code() != 200) {
-                            textview2.setText("No connection");
+                            Log.i(TAG, "API error");
                             return;
                         }
 
@@ -183,17 +248,20 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
                                 Double lng = response.body().getResults().get(i).getGeometry().getLocation().getLng();
                                 String rName = response.body().getResults().get(i).getName();
                                 Log.i("AJB", lat.toString() + lng.toString());
+
                                 //Place markers with title
                                 LatLng rLocation = new LatLng(lat, lng);
                                 mMap.addMarker(new MarkerOptions().position(rLocation).title(rName));
+                                mMap.animateCamera(CameraUpdateFactory.newLatLng(rLocation));
 
                             }
+                            Toast.makeText(getActivity(), "Found:" + response.body().getResults().size() + " pubs", Toast.LENGTH_LONG).show();
+
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResultsItem> call, Throwable t) {
-                        textview2.append(t.toString());
                     }
                 });
 
@@ -204,140 +272,80 @@ public class DashboardFragment extends Fragment implements OnMapReadyCallback {
         return root;
     }
 
-    @Override
-    public void onRequestPermissionsResult(
-            int requestCode, @NonNull String[] permissions,
-            @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(
-                requestCode, permissions, grantResults);
-        // Check condition
-        if (requestCode == 100 && (grantResults.length > 0)
-                && (grantResults[0] + grantResults[1]
-                == PackageManager.PERMISSION_GRANTED)) {
-            // When permission are granted
-            // Call  method
-            getCurrentLocation();
-        } else {
-            // When permission are denied
-            // Display toast
-            Toast
-                    .makeText(getActivity(),
-                            "Permission denied",
-                            Toast.LENGTH_SHORT)
-                    .show();
-        }
-    }
-
-    @SuppressLint("MissingPermission")
-    private void getCurrentLocation() {
-        // Initialize Location manager
-        LocationManager locationManager
-                = (LocationManager) getActivity()
-                .getSystemService(
-                        Context.LOCATION_SERVICE);
-        // Check condition
-        if (locationManager.isProviderEnabled(
-                LocationManager.GPS_PROVIDER)
-                || locationManager.isProviderEnabled(
-                LocationManager.NETWORK_PROVIDER)) {
-            // When location service is enabled
-            // Get last location
-            client.getLastLocation().addOnCompleteListener(
-                    new OnCompleteListener<Location>() {
-                        @Override
-                        public void onComplete(
-                                @NonNull Task<Location> task) {
-
-                            // Initialize location
-                            Location location
-                                    = task.getResult();
-                            // Check condition
-                            if (location != null) {
-                                // When location result is not
-                                // null set latitude
-                                tvLatitude.setText(
-                                        String.valueOf(
-                                                location
-                                                        .getLatitude()));
-                                // set longitude
-                                tvLongitude.setText(
-                                        String.valueOf(
-                                                location
-                                                        .getLongitude()));
-                                LatLng dLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                                mMap.addMarker(new MarkerOptions().position(dLocation));
-                                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(dLocation, 15));
-
-                            } else {
-                                // When location result is null
-                                // initialize location request
-                                LocationRequest locationRequest
-                                        = new LocationRequest()
-                                        .setPriority(
-                                                LocationRequest
-                                                        .PRIORITY_HIGH_ACCURACY)
-                                        .setInterval(10000)
-                                        .setFastestInterval(
-                                                1000)
-                                        .setNumUpdates(1);
-
-                                // Initialize location call back
-                                LocationCallback
-                                        locationCallback
-                                        = new LocationCallback() {
-                                    @Override
-                                    public void
-                                    onLocationResult(
-                                            LocationResult
-                                                    locationResult) {
-                                        // Initialize
-                                        // location
-                                        Location location1
-                                                = locationResult
-                                                .getLastLocation();
-                                        // Set latitude
-                                        tvLatitude.setText(
-                                                String.valueOf(
-                                                        location1
-                                                                .getLatitude()));
-                                        // Set longitude
-                                        tvLongitude.setText(
-                                                String.valueOf(
-                                                        location1
-                                                                .getLongitude()));
-                                    }
-                                };
-
-                                // Request location updates
-                                client.requestLocationUpdates(
-                                        locationRequest,
-                                        locationCallback,
-                                        Looper.myLooper());
-                            }
-                        }
-                    });
-        } else {
-            // When location service is not enabled
-            // open location setting
-            startActivity(
-                    new Intent(
-                            Settings
-                                    .ACTION_LOCATION_SOURCE_SETTINGS)
-                            .setFlags(
-                                    Intent.FLAG_ACTIVITY_NEW_TASK));
-        }
-    }
-
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        stopLocationUpdates();
         binding = null;
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.mMap = googleMap;
+    }
+
+    public void getLastLocation() {
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        fusedLocationClient.getCurrentLocation(PRIORITY_BALANCED_POWER_ACCURACY, null)
+                //fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            //mCurrentLocation = location;
+                            updateUILocation(location);
+                            // Logic to handle location object
+                            Log.i(TAG, "We got a location: (" + location.getLatitude() +
+                                    ", " + location.getLongitude() + ")");
+
+                        } else {
+                            Log.i(TAG, "We failed to get a last location");
+                        }
+                    }
+                });
+
+    }
+
+    private void startLocationUpdates() {
+        if (locationRequest == null) {
+            createLocationRequest();
+        }
+        fusedLocationClient.requestLocationUpdates(locationRequest,
+                locationCallback,
+                Looper.getMainLooper());
+    }
+
+    protected void createLocationRequest() {
+        locationRequest = LocationRequest.create();
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(5000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    }
+
+    private void stopLocationUpdates() {
+        Log.i(TAG, "Pause: stopping location updates");
+        fusedLocationClient.removeLocationUpdates(locationCallback);
+    }
+
+    private void updateUILocation(Location location) {
+        this.mCurrentLocation = location;
+        tvLatitude.setText("Lat: " + location.getLatitude());
+        tvLongitude.setText("Lon:" + location.getLongitude());
+        LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());
+        mMap.addMarker(new MarkerOptions().position(latlng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 15));
+
     }
 
 }
