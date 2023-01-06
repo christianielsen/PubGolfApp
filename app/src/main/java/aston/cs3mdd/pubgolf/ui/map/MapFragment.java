@@ -12,6 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +33,6 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -42,7 +44,9 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import aston.cs3mdd.pubgolf.R;
 import aston.cs3mdd.pubgolf.databinding.FragmentMapBinding;
@@ -65,8 +69,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private FragmentMapBinding binding;
     private GoogleMap mMap;
 
-    Button btLocation, btRestaurant;
-    TextView tvLatitude, tvLongitude, textview2;
+    private Button btLocation, btRestaurant;
+    private TextView tvLatitude, tvLongitude;
+
+    ArrayList<HashMap<String, String>> restaurantList;
+    private ListView lv;
+
+    String namey, lat;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -74,10 +83,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         binding = FragmentMapBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        SupportMapFragment supportMapFragment = (SupportMapFragment)
-                getChildFragmentManager().findFragmentById(R.id.google_map);
+//        SupportMapFragment supportMapFragment = (SupportMapFragment)
+//                getChildFragmentManager().findFragmentById(R.id.google_map);
+//
+//        supportMapFragment.getMapAsync(this);
 
-        supportMapFragment.getMapAsync(this);
+        restaurantList = new ArrayList<>();
+        lv = root.findViewById(R.id.listview);
 
 
         String apiKey = getActivity().getResources().getString(R.string.API_KEY);
@@ -201,8 +213,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
-        btRestaurant = root.findViewById(R.id.btRestaurant);
 
+        btRestaurant = root.findViewById(R.id.btRestaurant);
         btRestaurant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -226,6 +238,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 Call<ResultsItem> call = APICall.getData(loc, radius, type, keyword, key);
                 Log.i("AJB", call.toString());
 
+
                 call.enqueue(new Callback<ResultsItem>() {
                     @Override
                     public void onResponse(Call<ResultsItem> call, Response<ResultsItem> response) {
@@ -247,11 +260,26 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                                 //Place markers with title
                                 LatLng rLocation = new LatLng(lat, lng);
-                                mMap.addMarker(new MarkerOptions().position(rLocation).title(rName));
-                                mMap.animateCamera(CameraUpdateFactory.newLatLng(rLocation));
+//                                mMap.addMarker(new MarkerOptions().position(rLocation).title(namey));
+//                                mMap.animateCamera(CameraUpdateFactory.newLatLng(rLocation));
+
+                                HashMap<String, String> restaurants = new HashMap<>();
+                                restaurants.put("name", rName);
+                                restaurants.put("lat", lat.toString());
+
+                                restaurantList.add(restaurants);
+
+                                ListAdapter adapter = new SimpleAdapter(
+                                        getActivity(),
+                                        restaurantList,
+                                        R.layout.row_layout,
+                                        new String[]{"name", "lat"},
+                                        new int[]{R.id.tView, R.id.tView2});
+                                lv.setAdapter(adapter);
+
 
                             }
-                            Toast.makeText(getActivity(), "Found:" + response.body().getResults().size() + " pubs", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Found " + response.body().getResults().size() + " pubs", Toast.LENGTH_LONG).show();
 
                         }
                     }
@@ -264,6 +292,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
             }
         });
+
+
+
+
 
         return root;
     }
