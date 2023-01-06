@@ -291,10 +291,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
-
-
-
-
         return root;
     }
 
