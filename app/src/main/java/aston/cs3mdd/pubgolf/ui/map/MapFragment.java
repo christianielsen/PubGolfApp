@@ -74,9 +74,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     ArrayList<HashMap<String, String>> restaurantList;
     private ListView lv;
-
-    String namey, lat;
-
+    
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -256,6 +254,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                 Double lat = response.body().getResults().get(i).getGeometry().getLocation().getLat();
                                 Double lng = response.body().getResults().get(i).getGeometry().getLocation().getLng();
                                 String rName = response.body().getResults().get(i).getName();
+                                String address = response.body().getResults().get(i).getVicinity();
                                 Log.i("AJB", lat.toString() + lng.toString());
 
                                 //Place markers with title
@@ -265,7 +264,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                                 HashMap<String, String> restaurants = new HashMap<>();
                                 restaurants.put("name", rName);
-                                restaurants.put("lat", lat.toString());
+                                restaurants.put("address", address);
 
                                 restaurantList.add(restaurants);
 
@@ -273,10 +272,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                         getActivity(),
                                         restaurantList,
                                         R.layout.row_layout,
-                                        new String[]{"name", "lat"},
+                                        new String[]{"name", "address"},
                                         new int[]{R.id.tView, R.id.tView2});
                                 lv.setAdapter(adapter);
-
 
                             }
                             Toast.makeText(getActivity(), "Found " + response.body().getResults().size() + " pubs", Toast.LENGTH_LONG).show();
