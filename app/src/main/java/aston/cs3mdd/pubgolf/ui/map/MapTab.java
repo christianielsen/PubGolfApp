@@ -33,6 +33,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -81,10 +82,10 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
         binding = FragmentMapTabBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-//        SupportMapFragment supportMapFragment = (SupportMapFragment)
-//                getChildFragmentManager().findFragmentById(R.id.google_map);
-//
-//        supportMapFragment.getMapAsync(this);
+        SupportMapFragment supportMapFragment = (SupportMapFragment)
+                getChildFragmentManager().findFragmentById(R.id.google_map);
+
+        supportMapFragment.getMapAsync(this);
 
         restaurantList = new ArrayList<>();
         lv = root.findViewById(R.id.listview);
@@ -259,8 +260,8 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
 
                                 //Place markers with title
                                 LatLng rLocation = new LatLng(lat, lng);
-//                                mMap.addMarker(new MarkerOptions().position(rLocation).title(namey));
-//                                mMap.animateCamera(CameraUpdateFactory.newLatLng(rLocation));
+                                mMap.addMarker(new MarkerOptions().position(rLocation).title(rName));
+                                mMap.animateCamera(CameraUpdateFactory.newLatLng(rLocation));
 
                                 HashMap<String, String> restaurants = new HashMap<>();
                                 restaurants.put("name", rName);

@@ -8,16 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import aston.cs3mdd.pubgolf.databinding.FragmentRestaurantBinding;
+import aston.cs3mdd.pubgolf.databinding.FragmentRestaurantTabBinding;
 
 public class RestaurantTab extends Fragment {
 
-    private FragmentRestaurantBinding binding;
+    private FragmentRestaurantTabBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentRestaurantBinding.inflate(inflater, container, false);
+        binding = FragmentRestaurantTabBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         return root;

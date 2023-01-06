@@ -59,24 +59,17 @@
             android:id="@+id/btRestaurant"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Find Restaurants" />
+            android:text="Find Restaurants"/>
 
 
-        <!--        <androidx.fragment.app.FragmentContainerView-->
-        <!--            android:id="@+id/google_map"-->
-        <!--            android:name="com.google.android.gms.maps.SupportMapFragment"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginTop="1dp"-->
-        <!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/google_map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btRestaurant"/>
 
     </LinearLayout>
-
-    <ListView
-        android:id="@+id/listview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/linearlayout2" />
 
 
 </RelativeLayout>
