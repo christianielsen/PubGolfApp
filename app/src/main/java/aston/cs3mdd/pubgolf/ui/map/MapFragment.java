@@ -39,9 +39,12 @@ public class MapFragment extends Fragment {
 
         viewPager = getActivity().findViewById(R.id.view_pager);
         viewPager.setAdapter(tabPager);
+        viewPager.setUserInputEnabled(false);
 
         tabLayout = getActivity().findViewById(R.id.tab_layout);
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> tab.select()).attach();
+        tabLayout.getTabAt(0).setText("Map");
+        tabLayout.getTabAt(1).setText("Restaurants");
     }
 
     @Override
