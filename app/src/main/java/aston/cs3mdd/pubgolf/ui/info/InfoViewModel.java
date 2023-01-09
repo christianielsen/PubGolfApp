@@ -22,6 +22,7 @@ public class InfoViewModel extends ViewModel {
                 "\n");
     }
 
+
     public LiveData<String> getText() {
         return mText;
     }

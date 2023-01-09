@@ -3,7 +3,6 @@ package aston.cs3mdd.pubgolf.ui.map;
 import static com.google.android.gms.location.Priority.PRIORITY_BALANCED_POWER_ACCURACY;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -13,9 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,9 +45,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Locale;
 
 import aston.cs3mdd.pubgolf.R;
 import aston.cs3mdd.pubgolf.databinding.FragmentMapTabBinding;
+import aston.cs3mdd.pubgolf.ui.map.models.Restaurant;
 import aston.cs3mdd.pubgolf.ui.map.models.ResultsItem;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -74,7 +72,8 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
     private Button btLocation, btRestaurant;
     private TextView tvLatitude, tvLongitude;
 
-    public static ArrayList<HashMap<String, String>> restaurantList;
+//    public static ArrayList<HashMap<String, String>> restaurantList;
+    public static ArrayList<Restaurant> restaurantList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -87,7 +86,7 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
 
         supportMapFragment.getMapAsync(this);
 
-        restaurantList = new ArrayList<>();
+        restaurantList = new ArrayList<Restaurant>();
 
         String apiKey = getActivity().getResources().getString(R.string.API_KEY);
         Places.initialize(getActivity().getApplicationContext(), apiKey);
@@ -252,10 +251,9 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
                                 Double lat = response.body().getResults().get(i).getGeometry().getLocation().getLat();
                                 Double lng = response.body().getResults().get(i).getGeometry().getLocation().getLng();
 
-                                String rName = response.body().getResults().get(i).getName();
-                                String address = response.body().getResults().get(i).getVicinity();
+                                String rName = response.body().getResults().get(i).getName().toString();
+                                String address = response.body().getResults().get(i).getVicinity().toString();
                                 String rating = response.body().getResults().get(i).getRating().toString();
-                                String open = response.body().getResults().get(i).getOpeningHours().getOpenNow().toString();
 
                                 //Place markers with title
                                 LatLng rLocation = new LatLng(lat, lng);
@@ -263,17 +261,16 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
                                 mMap.animateCamera(CameraUpdateFactory.newLatLng(rLocation));
 
 
-                                HashMap<String, String> restaurants = new HashMap<>();
-                                restaurants.put("name", rName);
-                                restaurants.put("address", address);
-                                restaurants.put("rating", rating);
-                                restaurants.put("open", open);
+//                                HashMap<String, String> restaurants = new HashMap<>();
+//                                restaurants.put("rName", rName);
+//                                restaurants.put("address", address);
+//                                restaurants.put("rating", rating);
+//                                restaurantList.add(restaurants);
 
-                                restaurantList.add(restaurants);
+                                restaurantList.add(new Restaurant(rName, address, rating));
 
                             }
                             Toast.makeText(getActivity(), "Found " + response.body().getResults().size() + " pubs", Toast.LENGTH_LONG).show();
-
                         }
                     }
 
