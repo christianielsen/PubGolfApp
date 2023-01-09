@@ -16,7 +16,7 @@ import java.util.List;
 import aston.cs3mdd.pubgolf.R;
 import aston.cs3mdd.pubgolf.ui.map.models.Restaurant;
 
-public class RestaurantAdapter extends ArrayAdapter<Restaurant> implements Filterable {
+public class RestaurantAdapter extends ArrayAdapter<Restaurant> {
     private List<Restaurant> restaurantList;
     private List<Restaurant> getRestaurantListFilter = new ArrayList<>();
     Context mContext;
@@ -32,38 +32,6 @@ public class RestaurantAdapter extends ArrayAdapter<Restaurant> implements Filte
         this.restaurantList = restaurant;
         this.getRestaurantListFilter = restaurant;
         this.mContext = context;
-    }
-
-    public Filter getFilter() {
-        Filter filter = new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence constraint) {
-                FilterResults filterResults = new FilterResults();
-                List<Restaurant> filteredList = new ArrayList<>();
-                if (constraint == null || constraint.length() == 0) {
-                    filterResults.values = getRestaurantListFilter;
-                    filterResults.count = getRestaurantListFilter.size();
-                } else {
-                    String searchStr = constraint.toString().toLowerCase();
-                    for (Restaurant restaurant : restaurantList) {
-                        if (restaurant.getName().toString().contains(searchStr)) {
-                            filteredList.add(restaurant);
-                        }
-                    }
-                }
-                filterResults.values = filteredList;
-                filterResults.count = filteredList.size();
-                return filterResults;
-            }
-
-            @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-                restaurantList = (List<Restaurant>) results.values;
-                Log.i("AAAAA", results.values.toString());
-                notifyDataSetChanged();
-            }
-        };
-        return filter;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {

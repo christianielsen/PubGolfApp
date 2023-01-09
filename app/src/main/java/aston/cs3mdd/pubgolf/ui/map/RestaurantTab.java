@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -27,7 +28,8 @@ public class RestaurantTab extends Fragment {
     private FragmentRestaurantTabBinding binding;
 
     SearchView searchbar;
-    RestaurantAdapter adapter;
+    RestaurantAdapter adapter, adapter1;
+    ListView lv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,7 +38,7 @@ public class RestaurantTab extends Fragment {
         View root = binding.getRoot();
 
         searchbar = root.findViewById(R.id.searchbar);
-        ListView lv = root.findViewById(R.id.listview);
+        lv = root.findViewById(R.id.listview);
 
         adapter = new RestaurantAdapter(restaurantList, getActivity());
         lv.setAdapter(adapter);
@@ -44,20 +46,36 @@ public class RestaurantTab extends Fragment {
         searchbar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                String searchStr = query;
-                adapter.getFilter().filter(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                String searchStr = newText;
-                adapter.getFilter().filter(newText);
+                filter(newText);
                 return false;
             }
         });
 
         return root;
+    }
+
+    private void filter(String text) {
+        ArrayList<Restaurant> filteredList = new ArrayList<Restaurant>();
+        text = text.toLowerCase();
+        for (Restaurant item : restaurantList) {
+            if (item.getName().toLowerCase().contains(text) ||
+                    item.getAddress().toLowerCase().contains(text) ||
+                    item.getRating().contains(text)) {
+                filteredList.add(item);
+                Log.i("AAAAA", String.valueOf(filteredList.size()));
+            }
+        }
+        if (filteredList.isEmpty()) {
+            //No data
+        } else {
+            adapter1 = new RestaurantAdapter(filteredList, getActivity());
+            lv.setAdapter(adapter1);
+        }
     }
 
 }
