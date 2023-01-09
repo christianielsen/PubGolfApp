@@ -44,7 +44,7 @@ public class MapFragment extends Fragment {
         tabLayout = getActivity().findViewById(R.id.tab_layout);
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> tab.select()).attach();
         tabLayout.getTabAt(0).setText("Map");
-        tabLayout.getTabAt(1).setText("Restaurants");
+        tabLayout.getTabAt(1).setText("Pubs");
     }
 
     @Override
@@ -67,7 +67,7 @@ public class MapFragment extends Fragment {
                 case 0:
                     return new MapTab();
                 case 1:
-                    return new RestaurantTab();
+                    return new PubsTab();
                 default:
                     return new MapTab();
             }

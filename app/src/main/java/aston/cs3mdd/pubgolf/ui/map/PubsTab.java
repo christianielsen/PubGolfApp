@@ -6,42 +6,38 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Locale;
-import java.util.logging.Handler;
 
 import aston.cs3mdd.pubgolf.R;
-import aston.cs3mdd.pubgolf.databinding.FragmentRestaurantTabBinding;
+import aston.cs3mdd.pubgolf.databinding.FragmentPubsTabBinding;
 import aston.cs3mdd.pubgolf.ui.map.models.Restaurant;
 
-public class RestaurantTab extends Fragment {
+public class PubsTab extends Fragment {
 
-    private FragmentRestaurantTabBinding binding;
+    private FragmentPubsTabBinding binding;
 
     SearchView searchbar;
     RestaurantAdapter adapter, adapter1;
-    ListView lv;
+    RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentRestaurantTabBinding.inflate(inflater, container, false);
+        binding = FragmentPubsTabBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         searchbar = root.findViewById(R.id.searchbar);
-        lv = root.findViewById(R.id.listview);
+        recyclerView = root.findViewById(R.id.recyclerview);
 
-        adapter = new RestaurantAdapter(restaurantList, getActivity());
-        lv.setAdapter(adapter);
+        buildRecyclerView();
 
         searchbar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -59,6 +55,14 @@ public class RestaurantTab extends Fragment {
         return root;
     }
 
+    private void buildRecyclerView() {
+        adapter = new RestaurantAdapter(restaurantList, getActivity());
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(adapter);
+    }
+
     private void filter(String text) {
         ArrayList<Restaurant> filteredList = new ArrayList<Restaurant>();
         text = text.toLowerCase();
@@ -73,8 +77,7 @@ public class RestaurantTab extends Fragment {
         if (filteredList.isEmpty()) {
             //No data
         } else {
-            adapter1 = new RestaurantAdapter(filteredList, getActivity());
-            lv.setAdapter(adapter1);
+            adapter.filterList(filteredList);
         }
     }
 

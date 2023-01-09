@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     //Find id
@@ -242,4 +243,5 @@ public class MainActivity extends AppCompatActivity {
         parTotalStr = parTotal.getText().toString();
         scoreTotalStr = scoreTotal.getText().toString();
     }
+
 }
