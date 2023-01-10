@@ -6,6 +6,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.RectangularBounds;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
@@ -72,7 +74,7 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
     private Button btLocation, btRestaurant;
     private TextView tvLatitude, tvLongitude;
 
-//    public static ArrayList<HashMap<String, String>> restaurantList;
+    //    public static ArrayList<HashMap<String, String>> restaurantList;
     public static ArrayList<Restaurant> restaurantList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -87,29 +89,6 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
         supportMapFragment.getMapAsync(this);
 
         restaurantList = new ArrayList<Restaurant>();
-
-        String apiKey = getActivity().getResources().getString(R.string.API_KEY);
-        Places.initialize(getActivity().getApplicationContext(), apiKey);
-
-        // Initialize the AutocompleteSupportFragment.
-        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
-                getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
-        // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ADDRESS, Place.Field.NAME, Place.Field.LAT_LNG));
-
-        // Set up a PlaceSelectionListener to handle the response.
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            @Override
-            public void onPlaceSelected(@NotNull Place place) {
-                mMap.addMarker(new MarkerOptions().position(place.getLatLng()));
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 15));
-
-            }
-
-            @Override
-            public void onError(@NotNull Status status) {
-            }
-        });
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
@@ -177,6 +156,32 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
                 }
             }
         };
+
+        String apiKey = getActivity().getResources().getString(R.string.API_KEY);
+        Places.initialize(getActivity().getApplicationContext(), apiKey);
+
+        // Initialize the AutocompleteSupportFragment.
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+                getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+        // Specify the types of place data to return.
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ADDRESS, Place.Field.NAME, Place.Field.LAT_LNG));
+        autocompleteFragment.setHint("Search for a pub");
+        autocompleteFragment.setTypesFilter(Arrays.asList("restaurant", "bar"));
+        autocompleteFragment.setCountries("UK");
+
+        // Set up a PlaceSelectionListener to handle the response.
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(@NotNull Place place) {
+                mMap.addMarker(new MarkerOptions().position(place.getLatLng()).title(place.getName()));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 15));
+
+            }
+
+            @Override
+            public void onError(@NotNull Status status) {
+            }
+        });
 
         btLocation = root.findViewById(R.id.btLocation);
         tvLatitude = root.findViewById(R.id.tvLatitude);
@@ -359,4 +364,8 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
         LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());
 
     }
+
+
 }
+
+
