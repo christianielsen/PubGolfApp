@@ -1,9 +1,12 @@
 package aston.cs3mdd.pubgolf.ui.map;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -14,52 +17,58 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.maps.android.PolyUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import aston.cs3mdd.pubgolf.R;
+import aston.cs3mdd.pubgolf.ui.map.model.Directions;
 import aston.cs3mdd.pubgolf.ui.map.model.EndLocation__1;
 import aston.cs3mdd.pubgolf.ui.map.model.Route;
 import aston.cs3mdd.pubgolf.ui.map.model.StartLocation__1;
 import aston.cs3mdd.pubgolf.ui.map.model.Step;
+import aston.cs3mdd.pubgolf.ui.map.models.Restaurant;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class SelectedPubFragment extends Fragment {
+public class SelectedPubFragment extends Fragment implements OnMapReadyCallback {
 
     private FusedLocationProviderClient fusedLocationClient;
     private Location mCurrentLocation;
-    Button btTravel;
+    Button btTravel, btBack;
+    private GoogleMap mMap;
+    Restaurant restaurant;
     private static final String ARG_PARAM1 = "param1";
-
-
-    // TODO: Rename and change types of parameters
+    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM3 = "param3";
     private String mParam1;
-
+    private String mParam2;
+    private String mParam3;
 
     public SelectedPubFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @return A new instance of fragment SelectedPubFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SelectedPubFragment newInstance(String param1) {
+    public static SelectedPubFragment newInstance(String param1, String param2, String param3) {
         SelectedPubFragment fragment = new SelectedPubFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM3, param3);
 
         fragment.setArguments(args);
         return fragment;
@@ -70,8 +79,31 @@ public class SelectedPubFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-
+            mParam2 = getArguments().getString(ARG_PARAM2);
+            mParam3 = getArguments().getString(ARG_PARAM3);
         }
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        fusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                // Got last known location. In some rare situations this can be null.
+                if (location != null) {
+                    mCurrentLocation = location;
+                }
+            }
+        });
+
     }
 
     @Override
@@ -81,6 +113,12 @@ public class SelectedPubFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_selected_pub, container, false);
         TextView tvSelectedPub = view.findViewById(R.id.tvSelectedPub);
         tvSelectedPub.setText(mParam1);
+
+        SupportMapFragment supportMapFragment = (SupportMapFragment)
+                getChildFragmentManager().findFragmentById(R.id.google_map_selected);
+
+        supportMapFragment.getMapAsync(this);
+
 
         btTravel = view.findViewById(R.id.btTravel);
         btTravel.setOnClickListener(new View.OnClickListener() {
@@ -98,19 +136,20 @@ public class SelectedPubFragment extends Fragment {
                 String locLat = String.valueOf(mCurrentLocation.getLatitude());
                 String locLng = String.valueOf(mCurrentLocation.getLongitude());
                 String origin = locLat + "," + locLng;
-//                String placeLat = restaurant.getLat();
-//                String placeLng = restaurant.getLng();
-//                String destination = placeLat + "," + placeLng;
-                String destination = "52.4767078,-1.911394099999999";
+                String placeLat = mParam2;
+                String placeLng = mParam3;
+                String destination = placeLat + "," + placeLng;
+                Log.i("AAAAAA", destination);
+//                String destination = "52.4767078,-1.911394099999999";
                 String mode = "walking";
                 String key = getResources().getString(R.string.API_KEY);
 
-                Call<aston.cs3mdd.pubgolf.map.model.Directions> call = APICall.getDirections(origin, destination, mode, key);
+                Call<Directions> call = APICall.getDirections(origin, destination, mode, key);
                 Log.i("AJB", call.toString());
 
-                call.enqueue(new Callback<aston.cs3mdd.pubgolf.map.model.Directions>() {
+                call.enqueue(new Callback<Directions>() {
                     @Override
-                    public void onResponse(Call<aston.cs3mdd.pubgolf.map.model.Directions> call, Response<aston.cs3mdd.pubgolf.map.model.Directions> response) {
+                    public void onResponse(Call<Directions> call, Response<Directions> response) {
                         ArrayList<LatLng> routeList = new ArrayList<LatLng>();
                         Route routeA = response.body().getRoutes().get(0);
                         if (response.body().getRoutes().size() > 0) {
@@ -138,18 +177,41 @@ public class SelectedPubFragment extends Fragment {
                             for(int i = 0; i < routeList.size(); i++) {
                                 polyline.add(routeList.get(i));
                             }
-//                            mMap.addPolyline(polyline);
+                            LatLng userLocation = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
+                            LatLng rLocation = new LatLng(Double.valueOf(mParam2),Double.valueOf(mParam3));
+                            mMap.addMarker(new MarkerOptions()
+                                    .position(userLocation)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                                    .title("Your Location"));
+                            mMap.addMarker(new MarkerOptions().position(rLocation).title(mParam1));
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 15));
+                            mMap.addPolyline(polyline);
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<aston.cs3mdd.pubgolf.map.model.Directions> call, Throwable t) {
+                    public void onFailure(Call<Directions> call, Throwable t) {
 
                     }
                 });
             }
         });
 
+        btBack = view.findViewById(R.id.btBack);
+
+        btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().beginTransaction().remove(SelectedPubFragment.this).commit();
+            }
+        });
+
         return view;
     }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.mMap = googleMap;
+    }
+
 }

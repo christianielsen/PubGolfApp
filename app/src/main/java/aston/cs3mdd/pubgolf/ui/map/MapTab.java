@@ -236,7 +236,7 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
                 String lat = String.valueOf(mCurrentLocation.getLatitude());
                 String lng = String.valueOf(mCurrentLocation.getLongitude());
                 String loc = lat + "," + lng;
-                String radius = "5000";
+                String radius = "2000";
                 String type = "restaurant";
                 String keyword = "bar,restaurant";
                 String key = getActivity().getResources().getString(R.string.API_KEY);
@@ -256,6 +256,7 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
 
                         if (response.isSuccessful()) {
                             //Loop through results
+                            restaurantList.clear();
                             for (int i = 0; i < response.body().getResults().size(); i++) {
                                 //Get LatLng and place name of each result
                                 Double lat = response.body().getResults().get(i).getGeometry().getLocation().getLat();
@@ -271,7 +272,7 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
                                 mMap.addMarker(new MarkerOptions().position(rLocation).title(rName));
                                 mMap.animateCamera(CameraUpdateFactory.newLatLng(rLocation));
 
-                                restaurantList.add(new Restaurant(rName, address, rating, totalRating));
+                                restaurantList.add(new Restaurant(rName, address, rating, totalRating, lat, lng));
 
                             }
                             Toast.makeText(getActivity(), "Found " + response.body().getResults().size() + " pubs", Toast.LENGTH_LONG).show();

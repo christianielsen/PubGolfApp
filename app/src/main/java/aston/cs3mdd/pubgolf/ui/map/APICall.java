@@ -1,5 +1,6 @@
 package aston.cs3mdd.pubgolf.ui.map;
 
+import aston.cs3mdd.pubgolf.ui.map.model.Directions;
 import aston.cs3mdd.pubgolf.ui.map.models.ResultsItem;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -18,10 +19,10 @@ public interface APICall {
                                     @Query("key") String key);
 
     @GET("maps/api/directions/json?")
-    Call<aston.cs3mdd.pubgolf.map.model.Directions> getDirections(@Query("origin") String origin,
-                                                                  @Query("destination") String destination,
-                                                                  @Query("mode") String mode,
-                                                                  @Query("key") String key);
+    Call<Directions> getDirections(@Query("origin") String origin,
+                                   @Query("destination") String destination,
+                                   @Query("mode") String mode,
+                                   @Query("key") String key);
 }
 
 
