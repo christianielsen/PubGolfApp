@@ -36,6 +36,37 @@
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <TextView
+        android:id="@+id/totalRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:text="TextView"
+        android:textColor="@color/purple_500"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/totalRating2"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <TextView
+        android:id="@+id/totalRating2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:text="out of "
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <TextView
+        android:id="@+id/totalRating3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:text=" reviews"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/totalRating"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <TextView
         android:id="@+id/rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -56,5 +87,6 @@
         app:layout_constraintStart_toEndOf="@+id/rating"
         app:layout_constraintTop_toBottomOf="@+id/address"
         app:srcCompat="@drawable/ic_baseline_star_24" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 

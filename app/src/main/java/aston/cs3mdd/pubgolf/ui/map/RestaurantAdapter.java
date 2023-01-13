@@ -12,6 +12,8 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -23,8 +25,15 @@ import aston.cs3mdd.pubgolf.ui.map.models.Restaurant;
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ViewHolder> {
     private ArrayList<Restaurant> restaurantList;
 
-    public RestaurantAdapter(ArrayList<Restaurant> restaurant, Context context) {
+    private RestaurantClickListener restaurantClickListener;
+
+    public RestaurantAdapter(ArrayList<Restaurant> restaurant, Context context, RestaurantClickListener restaurantClickListener) {
         this.restaurantList = restaurant;
+        this.restaurantClickListener = restaurantClickListener;
+    }
+
+    public interface RestaurantClickListener {
+        void selectedRestaurant(Restaurant restaurant);
     }
 
     public void filterList(ArrayList<Restaurant> filterList) {
@@ -45,6 +54,14 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         holder.name.setText(model.getName());
         holder.address.setText(model.getAddress());
         holder.rating.setText(model.getRating());
+        holder.totalRating.setText(model.getTotalRating());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                restaurantClickListener.selectedRestaurant(restaurantList.get(position));
+            }
+        });
     }
 
     @Override
@@ -56,12 +73,15 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         private final TextView name;
         private final TextView address;
         private final TextView rating;
+        private final TextView totalRating;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.name);
             address = itemView.findViewById(R.id.address);
             rating = itemView.findViewById(R.id.rating);
+            totalRating = itemView.findViewById(R.id.totalRating);
         }
     }
+
 }
