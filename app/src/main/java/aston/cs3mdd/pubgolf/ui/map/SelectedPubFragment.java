@@ -170,15 +170,15 @@ public class SelectedPubFragment extends Fragment implements OnMapReadyCallback 
 
                             }
                         }
-                        if(routeList.size() > 0) {
+                        if (routeList.size() > 0) {
                             PolylineOptions polyline = new PolylineOptions()
                                     .width(10)
                                     .color(Color.RED);
-                            for(int i = 0; i < routeList.size(); i++) {
+                            for (int i = 0; i < routeList.size(); i++) {
                                 polyline.add(routeList.get(i));
                             }
                             LatLng userLocation = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
-                            LatLng rLocation = new LatLng(Double.valueOf(mParam2),Double.valueOf(mParam3));
+                            LatLng rLocation = new LatLng(Double.valueOf(mParam2), Double.valueOf(mParam3));
                             mMap.addMarker(new MarkerOptions()
                                     .position(userLocation)
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))

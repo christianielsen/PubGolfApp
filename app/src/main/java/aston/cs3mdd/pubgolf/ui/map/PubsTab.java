@@ -77,7 +77,6 @@ public class PubsTab extends Fragment implements RestaurantAdapter.RestaurantCli
                     item.getAddress().toLowerCase().contains(text) ||
                     item.getRating().contains(text)) {
                 filteredList.add(item);
-                Log.i("AAAAA", String.valueOf(filteredList.size()));
             }
         }
         if (filteredList.isEmpty()) {
@@ -89,8 +88,6 @@ public class PubsTab extends Fragment implements RestaurantAdapter.RestaurantCli
 
     @Override
     public void selectedRestaurant(Restaurant restaurant) {
-//        Toast.makeText(getActivity(), "Selected Restaurant" + restaurant.getName(), Toast.LENGTH_LONG).show();
-//    startActivity(new Intent(getActivity(), SelectedPubActivity.class).putExtra("data", restaurant));
         Fragment fragment = SelectedPubFragment.newInstance(restaurant.getName(), restaurant.getLat().toString(), restaurant.getLng().toString());
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.pubsTab, fragment, "selected_pub_fragment");

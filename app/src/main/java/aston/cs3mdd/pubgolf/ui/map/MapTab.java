@@ -77,9 +77,7 @@ public class MapTab extends Fragment implements OnMapReadyCallback, PubsTab.IFra
     private GoogleMap mMap;
 
     private Button btLocation, btRestaurant;
-    private TextView tvLatitude, tvLongitude;
 
-    //    public static ArrayList<HashMap<String, String>> restaurantList;
     public static ArrayList<Restaurant> restaurantList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -189,8 +187,6 @@ public class MapTab extends Fragment implements OnMapReadyCallback, PubsTab.IFra
         });
 
         btLocation = root.findViewById(R.id.btLocation);
-        tvLatitude = root.findViewById(R.id.tvLatitude);
-        tvLongitude = root.findViewById(R.id.tvLongitude);
 
         btLocation.setOnClickListener(new View.OnClickListener() {
 
@@ -339,6 +335,16 @@ public class MapTab extends Fragment implements OnMapReadyCallback, PubsTab.IFra
         if (locationRequest == null) {
             createLocationRequest();
         }
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         fusedLocationClient.requestLocationUpdates(locationRequest,
                 locationCallback,
                 Looper.getMainLooper());
@@ -358,9 +364,10 @@ public class MapTab extends Fragment implements OnMapReadyCallback, PubsTab.IFra
 
     private void updateUILocation(Location location) {
         this.mCurrentLocation = location;
-        tvLatitude.setText("Lat: " + location.getLatitude());
-        tvLongitude.setText("Lon:" + location.getLongitude());
         LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());
+        mMap.clear();
+        mMap.addMarker(new MarkerOptions().position(latlng).title("Current Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 15));
 
     }
 
