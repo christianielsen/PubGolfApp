@@ -64,7 +64,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MapTab extends Fragment implements OnMapReadyCallback {
+public class MapTab extends Fragment implements OnMapReadyCallback, PubsTab.IFragmentController {
     public static final String TAG = "AJB";
     private FusedLocationProviderClient fusedLocationClient;
     private Location mCurrentLocation;
@@ -365,6 +365,10 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
     }
 
 
+    @Override
+    public void passDataToFragmentMethod(String data) {
+
+    }
 }
 
 

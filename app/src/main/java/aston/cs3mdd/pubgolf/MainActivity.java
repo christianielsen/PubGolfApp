@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     EditText score1, score2, score3, score4, score5, score6, score7, score8, score9;
     EditText rule1, rule2, rule3, rule4, rule5, rule6, rule7, rule8, rule9;
     TextView parTotal, scoreTotal;
-    Button button;
+    Button btSave;
     SharedPreferences sp;
     String drink1Str, drink2Str, drink3Str, drink4Str, drink5Str, drink6Str, drink7Str, drink8Str, drink9Str;
     String par1Str, par2Str, par3Str, par4Str, par5Str, par6Str, par7Str, par8Str, par9Str;
@@ -55,7 +55,9 @@ public class MainActivity extends AppCompatActivity {
 
         findData();
 
-        button.setOnClickListener(new View.OnClickListener() {
+        btSave = findViewById(R.id.btSave);
+
+        btSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 savaData();
@@ -110,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
         parTotal = findViewById(R.id.parTotal);
         scoreTotal = findViewById(R.id.scoreTotal);
 
-        button = findViewById(R.id.button);
         sp = getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
     }
 
