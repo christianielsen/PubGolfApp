@@ -10,14 +10,16 @@ public class Restaurant implements Serializable {
     private String totalRating;
     private Double lat;
     private Double lng;
+    private String isOpen;
 
-    public Restaurant(String name, String address, String rating, String totalRating, Double lat, Double lng) {
+    public Restaurant(String name, String address, String rating, String totalRating, Double lat, Double lng, String isOpen) {
         this.name = name;
         this.address = address;
         this.rating = rating;
         this.totalRating = totalRating;
         this.lat = lat;
         this.lng = lng;
+        this.isOpen = isOpen;
     }
 
     public String getName() {
@@ -42,5 +44,9 @@ public class Restaurant implements Serializable {
 
     public Double getLng() {
         return lng;
+    }
+
+    public String getIsOpen() {
+        return isOpen;
     }
 }

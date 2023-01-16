@@ -64,7 +64,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MapTab extends Fragment implements OnMapReadyCallback, PubsTab.IFragmentController {
+public class MapTab extends Fragment implements OnMapReadyCallback {
     public static final String TAG = "AJB";
     private FusedLocationProviderClient fusedLocationClient;
     private Location mCurrentLocation;
@@ -244,12 +244,6 @@ public class MapTab extends Fragment implements OnMapReadyCallback, PubsTab.IFra
                     @Override
                     public void onResponse(Call<ResultsItem> call, Response<ResultsItem> response) {
                         //Checking for the response
-
-                        if (response.code() != 200) {
-                            Log.i(TAG, "API error");
-                            return;
-                        }
-
                         if (response.isSuccessful()) {
                             //Loop through results
                             restaurantList.clear();
@@ -262,13 +256,19 @@ public class MapTab extends Fragment implements OnMapReadyCallback, PubsTab.IFra
                                 String address = response.body().getResults().get(i).getVicinity().toString();
                                 String rating = response.body().getResults().get(i).getRating().toString();
                                 String totalRating = response.body().getResults().get(i).getUserRatingsTotal().toString();
+                                String isOpen = response.body().getResults().get(i).getOpeningHours().getOpenNow().toString();
+                                if(isOpen.equals("true")) {
+                                    isOpen = "Open Now";
+                                } else {
+                                    isOpen = "Closed Now";
+                                }
 
                                 //Place markers with title
                                 LatLng rLocation = new LatLng(lat, lng);
                                 mMap.addMarker(new MarkerOptions().position(rLocation).title(rName));
                                 mMap.animateCamera(CameraUpdateFactory.newLatLng(rLocation));
 
-                                restaurantList.add(new Restaurant(rName, address, rating, totalRating, lat, lng));
+                                restaurantList.add(new Restaurant(rName, address, rating, totalRating, lat, lng, isOpen));
 
                             }
                             Toast.makeText(getActivity(), "Found " + response.body().getResults().size() + " pubs", Toast.LENGTH_LONG).show();
@@ -368,12 +368,6 @@ public class MapTab extends Fragment implements OnMapReadyCallback, PubsTab.IFra
         mMap.clear();
         mMap.addMarker(new MarkerOptions().position(latlng).title("Current Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 15));
-
-    }
-
-
-    @Override
-    public void passDataToFragmentMethod(String data) {
 
     }
 }

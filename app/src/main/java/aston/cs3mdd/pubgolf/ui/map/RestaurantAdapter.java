@@ -55,6 +55,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         holder.address.setText(model.getAddress());
         holder.rating.setText(model.getRating());
         holder.totalRating.setText(model.getTotalRating());
+        holder.isOpen.setText(model.getIsOpen());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +75,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         private final TextView address;
         private final TextView rating;
         private final TextView totalRating;
+        private final TextView isOpen;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -81,6 +83,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
             address = itemView.findViewById(R.id.address);
             rating = itemView.findViewById(R.id.rating);
             totalRating = itemView.findViewById(R.id.totalRating);
+            isOpen = itemView.findViewById(R.id.isOpen);
         }
     }
 

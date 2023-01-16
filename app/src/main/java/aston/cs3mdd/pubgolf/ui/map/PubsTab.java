@@ -97,8 +97,5 @@ public class PubsTab extends Fragment implements RestaurantAdapter.RestaurantCli
         transaction.commit();
 
     }
-    public interface IFragmentController {
-        void passDataToFragmentMethod(String data);
-    }
 
 }

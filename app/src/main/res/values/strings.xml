@@ -28,7 +28,13 @@
     <string name="hole8">8</string>
     <string name="hole9">9</string>
     <string name="API_KEY">AIzaSyAE1O94eM9xi9_NR9jEZwm9xuKWUFyWCOU</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="text_title">Pub Golf</string>
+    <string name="text_title1">Map</string>
+    <string name="text_title2">Rules or Penalties</string>
+
+    <string name="text_information">Pub Golf is a drinking activity to play with friends. The concept is simple, there will be 9 holes in total which will be pubs in this case. Each hole will have a drink, set by the group or the leader. The par for the hole is also set, the number set will correspond to how many sips each player takes to finish their drink. The score is how many sips the player actually takes. A rule is something the group has to follow while on that hole. Clicking save will save the data inserted into the scorecard. The Total for score and par will also be calculated so each player can see how well they did.</string>
+    <string name="text_information1">In the Map tab, there are two buttons, location and finding restaurants. Once the player has made their scorecard, they can then get their location which will display a marker to show where they are. Once the location has been set, the user can then find the nearest pubs to them. The pubs will be marked with a marker on the map to show where they are. Clicking on a marker will also show the name of the pub. There will also be a list of Pubs in the pub tab which will show the name, address, and rating of each pub nearby.</string>
+    <string name="text_information2">Some rules which can improve a game are:\n \u2022 Water Hazard - Toilets cannot be used at this hole\n \u2022 Bunker Hazard - The drink must be consumed in one\n \u2022 Spilling a drink - 2 strokes added\n \u2022 Starting a fight with someone - 10 strokes added</string>
 
 </resources>
