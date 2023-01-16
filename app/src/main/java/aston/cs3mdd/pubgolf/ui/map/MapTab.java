@@ -4,7 +4,6 @@ import static com.google.android.gms.location.Priority.PRIORITY_BALANCED_POWER_A
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
@@ -13,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -35,27 +33,19 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
-import com.google.maps.android.PolyUtil;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import aston.cs3mdd.pubgolf.R;
 import aston.cs3mdd.pubgolf.databinding.FragmentMapTabBinding;
-import aston.cs3mdd.pubgolf.ui.map.model.EndLocation__1;
-import aston.cs3mdd.pubgolf.ui.map.model.Route;
-import aston.cs3mdd.pubgolf.ui.map.model.StartLocation__1;
-import aston.cs3mdd.pubgolf.ui.map.model.Step;
 import aston.cs3mdd.pubgolf.ui.map.models.Restaurant;
 import aston.cs3mdd.pubgolf.ui.map.models.ResultsItem;
 import retrofit2.Call;

@@ -34,9 +34,9 @@ import java.util.List;
 
 import aston.cs3mdd.pubgolf.R;
 import aston.cs3mdd.pubgolf.ui.map.model.Directions;
-import aston.cs3mdd.pubgolf.ui.map.model.EndLocation__1;
+import aston.cs3mdd.pubgolf.ui.map.model.EndLocation;
 import aston.cs3mdd.pubgolf.ui.map.model.Route;
-import aston.cs3mdd.pubgolf.ui.map.model.StartLocation__1;
+import aston.cs3mdd.pubgolf.ui.map.model.StartLocation;
 import aston.cs3mdd.pubgolf.ui.map.model.Step;
 import aston.cs3mdd.pubgolf.ui.map.models.Restaurant;
 import retrofit2.Call;
@@ -111,14 +111,16 @@ public class SelectedPubFragment extends Fragment implements OnMapReadyCallback 
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_selected_pub, container, false);
-        TextView tvSelectedPub = view.findViewById(R.id.tvSelectedPub);
-        tvSelectedPub.setText(mParam1);
 
         SupportMapFragment supportMapFragment = (SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.google_map_selected);
 
         supportMapFragment.getMapAsync(this);
 
+        TextView tvSelectedPub = view.findViewById(R.id.tvSelectedPub);
+        tvSelectedPub.setText(mParam1);
+
+        TextView tvDistance = view.findViewById(R.id.tvDistance);
 
         btTravel = view.findViewById(R.id.btTravel);
         btTravel.setOnClickListener(new View.OnClickListener() {
@@ -155,8 +157,8 @@ public class SelectedPubFragment extends Fragment implements OnMapReadyCallback 
                         if (response.body().getRoutes().size() > 0) {
                             List<Step> steps = routeA.getLegs().get(0).getSteps();
                             Step step;
-                            StartLocation__1 start;
-                            EndLocation__1 end;
+                            StartLocation start;
+                            EndLocation end;
                             String polyline;
                             for (int i = 0; i < steps.size(); i++) {
                                 step = steps.get(i);
@@ -187,6 +189,8 @@ public class SelectedPubFragment extends Fragment implements OnMapReadyCallback 
                             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 15));
                             mMap.addPolyline(polyline);
                         }
+                        String distance = response.body().getRoutes().get(0).getLegs().get(0).getDistance().getText();
+                        tvDistance.setText(distance);
                     }
 
                     @Override

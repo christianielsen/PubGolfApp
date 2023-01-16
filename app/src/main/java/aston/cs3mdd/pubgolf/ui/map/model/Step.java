@@ -8,13 +8,13 @@ public class Step {
 
     @SerializedName("distance")
     @Expose
-    private Distance__1 distance;
+    private Distance distance;
     @SerializedName("duration")
     @Expose
-    private Duration__1 duration;
+    private Duration duration;
     @SerializedName("end_location")
     @Expose
-    private EndLocation__1 endLocation;
+    private EndLocation endLocation;
     @SerializedName("html_instructions")
     @Expose
     private String htmlInstructions;
@@ -23,7 +23,7 @@ public class Step {
     private Polyline polyline;
     @SerializedName("start_location")
     @Expose
-    private StartLocation__1 startLocation;
+    private StartLocation startLocation;
     @SerializedName("travel_mode")
     @Expose
     private String travelMode;
@@ -31,27 +31,27 @@ public class Step {
     @Expose
     private String maneuver;
 
-    public Distance__1 getDistance() {
+    public Distance getDistance() {
         return distance;
     }
 
-    public void setDistance(Distance__1 distance) {
+    public void setDistance(Distance distance) {
         this.distance = distance;
     }
 
-    public Duration__1 getDuration() {
+    public Duration getDuration() {
         return duration;
     }
 
-    public void setDuration(Duration__1 duration) {
+    public void setDuration(Duration duration) {
         this.duration = duration;
     }
 
-    public EndLocation__1 getEndLocation() {
+    public EndLocation getEndLocation() {
         return endLocation;
     }
 
-    public void setEndLocation(EndLocation__1 endLocation) {
+    public void setEndLocation(EndLocation endLocation) {
         this.endLocation = endLocation;
     }
 
@@ -71,11 +71,11 @@ public class Step {
         this.polyline = polyline;
     }
 
-    public StartLocation__1 getStartLocation() {
+    public StartLocation getStartLocation() {
         return startLocation;
     }
 
-    public void setStartLocation(StartLocation__1 startLocation) {
+    public void setStartLocation(StartLocation startLocation) {
         this.startLocation = startLocation;
     }
 
