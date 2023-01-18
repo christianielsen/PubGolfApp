@@ -9,16 +9,25 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
+
 import aston.cs3mdd.pubgolf.databinding.ActivityMainBinding;
+import aston.cs3mdd.pubgolf.ui.map.MapTab;
+import aston.cs3mdd.pubgolf.ui.map.SelectedPubFragment;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -4,6 +4,7 @@ import static com.google.android.gms.location.Priority.PRIORITY_BALANCED_POWER_A
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
@@ -19,6 +20,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -32,7 +35,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
@@ -69,6 +74,7 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
     private Button btLocation, btRestaurant;
 
     public static ArrayList<Restaurant> restaurantList;
+    public Marker userLocation;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -191,8 +197,7 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
                     double lat = mCurrentLocation.getLatitude();
                     double lng = mCurrentLocation.getLongitude();
                     LatLng latlng = new LatLng(lat, lng);
-                    mMap.clear();
-                    mMap.addMarker(new MarkerOptions().position(latlng).title("Current Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                    userLocation = mMap.addMarker(new MarkerOptions().position(latlng).title("Current Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 15));
 
                 } else {
@@ -247,7 +252,7 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
                                 String rating = response.body().getResults().get(i).getRating().toString();
                                 String totalRating = response.body().getResults().get(i).getUserRatingsTotal().toString();
                                 String isOpen = response.body().getResults().get(i).getOpeningHours().getOpenNow().toString();
-                                if(isOpen.equals("true")) {
+                                if (isOpen.equals("true")) {
                                     isOpen = "Open Now";
                                 } else {
                                     isOpen = "Closed Now";
@@ -355,11 +360,12 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
     private void updateUILocation(Location location) {
         this.mCurrentLocation = location;
         LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());
-        mMap.clear();
-        mMap.addMarker(new MarkerOptions().position(latlng).title("Current Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 15));
+//        userLocation.remove();
+//        userLocation = mMap.addMarker(new MarkerOptions().position(latlng).title("Current Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 15));
 
     }
+
 }
 
 

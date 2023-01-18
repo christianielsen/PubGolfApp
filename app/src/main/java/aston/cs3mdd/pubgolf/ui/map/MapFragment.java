@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.gms.maps.MapView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -35,7 +37,7 @@ public class MapFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        MyTabPagerAdapter tabPager = new MyTabPagerAdapter(getActivity());
+        TabPagerAdapter tabPager = new TabPagerAdapter(getActivity());
 
         viewPager = getActivity().findViewById(R.id.view_pager);
         viewPager.setAdapter(tabPager);
@@ -54,10 +56,10 @@ public class MapFragment extends Fragment {
     }
 
 
-    public class MyTabPagerAdapter extends FragmentStateAdapter {
+    public class TabPagerAdapter extends FragmentStateAdapter {
 
-        public MyTabPagerAdapter(@NonNull FragmentActivity fa) {
-            super(fa);
+        public TabPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
+            super(fragmentActivity);
         }
 
         @NonNull
