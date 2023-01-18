@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -91,8 +93,6 @@ public class PubsTab extends Fragment implements RestaurantAdapter.RestaurantCli
         Fragment fragment = SelectedPubFragment.newInstance(restaurant.getName(), restaurant.getLat().toString(), restaurant.getLng().toString());
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.pubsTab, fragment, "selected_pub_fragment");
-//        transaction.hide(getActivity().getSupportFragmentManager().findFragmentByTag("pubs_tab_fragment"));
-//        transaction.add(R.id.rec, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
 
