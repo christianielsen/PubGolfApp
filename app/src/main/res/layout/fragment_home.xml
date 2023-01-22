@@ -695,7 +695,7 @@
                 android:layout_width="138dp"
                 android:layout_height="67dp"
                 android:layout_marginTop="56dp"
-                android:text="Delete"
+                android:text="Clear Scorecard"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.941"
                 app:layout_constraintStart_toStartOf="parent"

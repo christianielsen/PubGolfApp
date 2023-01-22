@@ -53,7 +53,7 @@ public class HomeFragment extends Fragment {
         btSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                savaData();
+                saveData();
             }
         });
 
@@ -69,10 +69,16 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
+    public void onPause() {
+        super.onPause();
+        saveData();
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        saveData();
     }
 
     //Get the data from the SharedPreference and change the TextView to set the data
@@ -256,11 +262,10 @@ public class HomeFragment extends Fragment {
         parTotal = root.findViewById(R.id.parTotal);
         scoreTotal = root.findViewById(R.id.scoreTotal);
 
-        sp = getActivity().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
     }
 
     //Save the data to the SharedPreference
-    private void savaData() {
+    private void saveData() {
         drink1Str = drink1.getText().toString();
         drink2Str = drink2.getText().toString();
         drink3Str = drink3.getText().toString();
@@ -301,6 +306,7 @@ public class HomeFragment extends Fragment {
         rule8Str = rule8.getText().toString();
         rule9Str = rule9.getText().toString();
 
+        SharedPreferences sp = getActivity().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 
         editor.putString("drink1", drink1Str);

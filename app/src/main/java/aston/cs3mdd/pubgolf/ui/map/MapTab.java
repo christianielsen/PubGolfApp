@@ -162,7 +162,7 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
                 getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
         // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ADDRESS, Place.Field.NAME, Place.Field.LAT_LNG));
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.NAME, Place.Field.ADDRESS, Place.Field.RATING, Place.Field.USER_RATINGS_TOTAL, Place.Field.LAT_LNG));
         //Set text for searchbar
         autocompleteFragment.setHint("Search for a pub");
         //Only show restaurants while searching
@@ -174,9 +174,19 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NotNull Place place) {
+                String rName = place.getName();
+                String address = place.getAddress();
+                String rating = place.getRating().toString();
+                String totalRating = place.getUserRatingsTotal().toString();
+                Double lat = place.getLatLng().latitude;
+                Double lng = place.getLatLng().longitude;
+
+                Log.i("AAAAAA", rName + address + rating + totalRating + lat + lng + "");
+
                 //Place a map marker on the place selected
                 mMap.addMarker(new MarkerOptions().position(place.getLatLng()).title(place.getName()));
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 15));
+                restaurantList.add(new Restaurant(rName, address, rating, totalRating, lat, lng, "Open"));
             }
 
             @Override
