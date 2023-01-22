@@ -100,6 +100,7 @@ public class PubsTab extends Fragment implements RestaurantAdapter.RestaurantCli
     //On clicking item, create a new fragment and pass the place name and location
     @Override
     public void selectedRestaurant(Restaurant restaurant) {
+        //Pass data into new fragment
         Fragment fragment = SelectedPubFragment.newInstance(restaurant.getName(), restaurant.getLat().toString(), restaurant.getLng().toString());
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.pubsTab, fragment, "selected_pub_fragment");

@@ -20,8 +20,8 @@ import aston.cs3mdd.pubgolf.R;
 import aston.cs3mdd.pubgolf.databinding.FragmentMapBinding;
 
 /*
-* Parent fragment for MapTab and PubsTab
-* Created with the help of the answer on a stackoverflow question
+* Top level fragment for MapTab and PubsTab
+* Created with the help of an answer on a stackoverflow question
 * https://stackoverflow.com/a/53959182/20435153
 * */
 public class MapFragment extends Fragment {

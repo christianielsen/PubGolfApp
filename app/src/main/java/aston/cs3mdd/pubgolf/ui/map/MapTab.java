@@ -180,13 +180,12 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
                 String totalRating = place.getUserRatingsTotal().toString();
                 Double lat = place.getLatLng().latitude;
                 Double lng = place.getLatLng().longitude;
-
                 Log.i("AAAAAA", rName + address + rating + totalRating + lat + lng + "");
 
                 //Place a map marker on the place selected
                 mMap.addMarker(new MarkerOptions().position(place.getLatLng()).title(place.getName()));
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 15));
-                restaurantList.add(new Restaurant(rName, address, rating, totalRating, lat, lng, "Open"));
+                restaurantList.add(new Restaurant(rName, address, rating, totalRating, lat, lng, "No data"));
             }
 
             @Override
