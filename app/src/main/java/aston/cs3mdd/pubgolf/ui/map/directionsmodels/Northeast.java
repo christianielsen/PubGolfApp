@@ -1,9 +1,9 @@
 
-package aston.cs3mdd.pubgolf.ui.map.model;
+package aston.cs3mdd.pubgolf.ui.map.directionsmodels;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-public class EndLocation {
+//Created using https://www.jsonschema2pojo.org/
+public class Northeast {
 
     @SerializedName("lat")
     @Expose

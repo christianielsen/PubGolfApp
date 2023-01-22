@@ -1,13 +1,10 @@
 
-package aston.cs3mdd.pubgolf.ui.map.model;
+package aston.cs3mdd.pubgolf.ui.map.directionsmodels;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import aston.cs3mdd.pubgolf.ui.map.model.GeocodedWaypoint;
-import aston.cs3mdd.pubgolf.ui.map.model.Route;
-
+//Created using https://www.jsonschema2pojo.org/
 public class Directions {
 
     @SerializedName("geocoded_waypoints")

@@ -4,8 +4,6 @@ import static com.google.android.gms.location.Priority.PRIORITY_BALANCED_POWER_A
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.graphics.BlendModeColorFilter;
-import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
@@ -21,8 +19,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentResultListener;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -38,7 +34,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
@@ -52,14 +47,17 @@ import java.util.Arrays;
 
 import aston.cs3mdd.pubgolf.R;
 import aston.cs3mdd.pubgolf.databinding.FragmentMapTabBinding;
-import aston.cs3mdd.pubgolf.ui.map.models.Restaurant;
-import aston.cs3mdd.pubgolf.ui.map.models.ResultsItem;
+import aston.cs3mdd.pubgolf.ui.map.placemodels.Restaurant;
+import aston.cs3mdd.pubgolf.ui.map.placemodels.ResultsItem;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/*
+* Map tab with a map to show nearby places
+* */
 public class MapTab extends Fragment implements OnMapReadyCallback {
     public static final String TAG = "AJB";
     private FusedLocationProviderClient fusedLocationClient;
@@ -83,12 +81,11 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
         binding = FragmentMapTabBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        // Initialise the map
         SupportMapFragment supportMapFragment = (SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.google_map);
 
         supportMapFragment.getMapAsync(this);
-
-        restaurantList = new ArrayList<Restaurant>();
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
@@ -157,25 +154,29 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
             }
         };
 
-        String apiKey = getActivity().getResources().getString(R.string.API_KEY);
-        Places.initialize(getActivity().getApplicationContext(), apiKey);
+        //Google search autocomplete
+        String key = getActivity().getResources().getString(R.string.API_KEY);
+        Places.initialize(getActivity().getApplicationContext(), key);
 
         // Initialize the AutocompleteSupportFragment.
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
                 getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
         // Specify the types of place data to return.
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ADDRESS, Place.Field.NAME, Place.Field.LAT_LNG));
+        //Set text for searchbar
         autocompleteFragment.setHint("Search for a pub");
+        //Only show restaurants while searching
         autocompleteFragment.setTypesFilter(Arrays.asList("restaurant", "bar"));
+        //Only show results in the UK
         autocompleteFragment.setCountries("UK");
 
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NotNull Place place) {
+                //Place a map marker on the place selected
                 mMap.addMarker(new MarkerOptions().position(place.getLatLng()).title(place.getName()));
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 15));
-
             }
 
             @Override
@@ -197,6 +198,7 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
                     Log.i(TAG, "Updates started");
                     double lat = mCurrentLocation.getLatitude();
                     double lng = mCurrentLocation.getLongitude();
+                    //Set map marker on device location
                     LatLng latlng = new LatLng(lat, lng);
                     userLocation = mMap.addMarker(new MarkerOptions().position(latlng).title("Current Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 15));
@@ -213,6 +215,7 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
 
 
         btRestaurant = root.findViewById(R.id.btRestaurant);
+        restaurantList = new ArrayList<Restaurant>();
         btRestaurant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -225,6 +228,7 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
                 //Instance for interface
                 APICall APICall = retrofit.create(APICall.class);
 
+                //Call queries
                 String lat = String.valueOf(mCurrentLocation.getLatitude());
                 String lng = String.valueOf(mCurrentLocation.getLongitude());
                 String loc = lat + "," + lng;
@@ -234,36 +238,40 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
                 String key = getActivity().getResources().getString(R.string.API_KEY);
 
                 Call<ResultsItem> call = APICall.getData(loc, radius, type, keyword, key);
-                Log.i("AJB", call.toString());
-
                 call.enqueue(new Callback<ResultsItem>() {
                     @Override
                     public void onResponse(Call<ResultsItem> call, Response<ResultsItem> response) {
                         //Checking for the response
                         if (response.isSuccessful()) {
-                            //Loop through results
                             restaurantList.clear();
+                            //Loop through results
                             for (int i = 0; i < response.body().getResults().size(); i++) {
                                 //Get LatLng and place name of each result
                                 Double lat = response.body().getResults().get(i).getGeometry().getLocation().getLat();
                                 Double lng = response.body().getResults().get(i).getGeometry().getLocation().getLng();
 
+                                //Get the place name, address, rating, total ratings, and open status
                                 String rName = response.body().getResults().get(i).getName().toString();
                                 String address = response.body().getResults().get(i).getVicinity().toString();
                                 String rating = response.body().getResults().get(i).getRating().toString();
                                 String totalRating = response.body().getResults().get(i).getUserRatingsTotal().toString();
-                                String isOpen = response.body().getResults().get(i).getOpeningHours().getOpenNow().toString();
+                                String isOpen;
+                                isOpen = response.body().getResults().get(i).getOpeningHours().getOpenNow().toString();
+                                //Convert the booleans into readable text
                                 if (isOpen.equals("true")) {
                                     isOpen = "Open Now";
-                                } else {
+                                } else if (isOpen.equals("false")) {
                                     isOpen = "Closed Now";
+                                } else {
+                                    isOpen = "No data";
                                 }
 
-                                //Place markers with title
+                                //Place a marker for each place and set title as the name
                                 LatLng rLocation = new LatLng(lat, lng);
                                 mMap.addMarker(new MarkerOptions().position(rLocation).title(rName));
                                 mMap.animateCamera(CameraUpdateFactory.newLatLng(rLocation));
 
+                                //Save the data into an arraylist
                                 restaurantList.add(new Restaurant(rName, address, rating, totalRating, lat, lng, isOpen));
 
                             }
@@ -294,28 +302,16 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         this.mMap = googleMap;
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
+        //Add location puck
         mMap.setMyLocationEnabled(true);
+        //Add zoom controls
         mMap.getUiSettings().setZoomControlsEnabled(true);
     }
 
     public void getLastLocation() {
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         fusedLocationClient.getCurrentLocation(PRIORITY_BALANCED_POWER_ACCURACY, null)
@@ -344,13 +340,6 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
             createLocationRequest();
         }
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         fusedLocationClient.requestLocationUpdates(locationRequest,
@@ -372,11 +361,6 @@ public class MapTab extends Fragment implements OnMapReadyCallback {
 
     private void updateUILocation(Location location) {
         this.mCurrentLocation = location;
-        LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());
-//        userLocation.remove();
-//        userLocation = mMap.addMarker(new MarkerOptions().position(latlng).title("Current Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 15));
-
     }
 
 }

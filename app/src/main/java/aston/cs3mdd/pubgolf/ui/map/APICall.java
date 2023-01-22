@@ -1,16 +1,14 @@
 package aston.cs3mdd.pubgolf.ui.map;
 
-import aston.cs3mdd.pubgolf.ui.map.model.Directions;
-import aston.cs3mdd.pubgolf.ui.map.models.ResultsItem;
+import aston.cs3mdd.pubgolf.ui.map.directionsmodels.Directions;
+import aston.cs3mdd.pubgolf.ui.map.placemodels.ResultsItem;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface APICall {
 
-    // https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=52.573012,-1.173310&radius=500&type=restaurant&key=AIzaSyAE1O94eM9xi9_NR9jEZwm9xuKWUFyWCOU
-//?location=52.573012,-1.173310&radius=500&type=restaurant&key=AIzaSyAE1O94eM9xi9_NR9jEZwm9xuKWUFyWCOU
-
+//    Retrofit interface for the nearby place details
     @GET("maps/api/place/nearbysearch/json?")
     Call<ResultsItem> getData(@Query("location") String loc,
                                     @Query("radius") String radius,
@@ -18,6 +16,7 @@ public interface APICall {
                                     @Query("keyword") String keyword,
                                     @Query("key") String key);
 
+//    Retrofit interface for the directions to a place
     @GET("maps/api/directions/json?")
     Call<Directions> getDirections(@Query("origin") String origin,
                                    @Query("destination") String destination,

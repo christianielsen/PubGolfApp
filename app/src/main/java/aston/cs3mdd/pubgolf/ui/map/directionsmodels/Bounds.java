@@ -1,10 +1,11 @@
 
-package aston.cs3mdd.pubgolf.ui.map.models;
+package aston.cs3mdd.pubgolf.ui.map.directionsmodels;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Viewport {
+//Created using https://www.jsonschema2pojo.org/
+public class Bounds {
 
     @SerializedName("northeast")
     @Expose

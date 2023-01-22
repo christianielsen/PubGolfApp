@@ -2,38 +2,34 @@ package aston.cs3mdd.pubgolf.ui.map;
 
 import static aston.cs3mdd.pubgolf.ui.map.MapTab.restaurantList;
 
-import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import aston.cs3mdd.pubgolf.R;
 import aston.cs3mdd.pubgolf.databinding.FragmentPubsTabBinding;
-import aston.cs3mdd.pubgolf.ui.map.models.Restaurant;
+import aston.cs3mdd.pubgolf.ui.map.placemodels.Restaurant;
 
+/*
+ * Pubs tab to show list of pubs in a recyclerview
+ * */
 public class PubsTab extends Fragment implements RestaurantAdapter.RestaurantClickListener {
 
     private FragmentPubsTabBinding binding;
-
-    private Location mCurrentLocation;
-
     SearchView searchbar;
-    RestaurantAdapter adapter, adapter1;
+    RestaurantAdapter adapter;
     RecyclerView recyclerView;
 
     @Override
@@ -45,14 +41,16 @@ public class PubsTab extends Fragment implements RestaurantAdapter.RestaurantCli
         searchbar = root.findViewById(R.id.searchbar);
         recyclerView = root.findViewById(R.id.recyclerview);
 
-        buildRecyclerView();
+        initRecyclerView();
 
+        //Searchbar to search through the arraylist
         searchbar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
 
+            //When the user adds a letter, filter through
             @Override
             public boolean onQueryTextChange(String newText) {
                 filter(newText);
@@ -63,7 +61,8 @@ public class PubsTab extends Fragment implements RestaurantAdapter.RestaurantCli
         return root;
     }
 
-    private void buildRecyclerView() {
+    //Initialise the recyclerview
+    private void initRecyclerView() {
         adapter = new RestaurantAdapter(restaurantList, getActivity(), this);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
@@ -71,23 +70,34 @@ public class PubsTab extends Fragment implements RestaurantAdapter.RestaurantCli
         recyclerView.setAdapter(adapter);
     }
 
+
+    /*
+    * Filter method from https://www.geeksforgeeks.org/searchview-in-android-with-recyclerview/
+    * Modified to work with project
+    * */
     private void filter(String text) {
+        //Temp arraylist
         ArrayList<Restaurant> filteredList = new ArrayList<Restaurant>();
         text = text.toLowerCase();
+        //Loop through the arraylist using the model
         for (Restaurant item : restaurantList) {
+            //Filter through all options
             if (item.getName().toLowerCase().contains(text) ||
                     item.getAddress().toLowerCase().contains(text) ||
                     item.getRating().contains(text)) {
+                //Got data, add it to temp arraylist
                 filteredList.add(item);
             }
         }
         if (filteredList.isEmpty()) {
             //No data
         } else {
+            //Update the adapter to show the data in the temporary arraylist
             adapter.filterList(filteredList);
         }
     }
 
+    //On clicking item, create a new fragment and pass the place name and location
     @Override
     public void selectedRestaurant(Restaurant restaurant) {
         Fragment fragment = SelectedPubFragment.newInstance(restaurant.getName(), restaurant.getLat().toString(), restaurant.getLng().toString());

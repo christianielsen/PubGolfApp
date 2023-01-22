@@ -1,10 +1,10 @@
 
-package aston.cs3mdd.pubgolf.ui.map.models;
+package aston.cs3mdd.pubgolf.ui.map.placemodels;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
+//Created using https://www.jsonschema2pojo.org/
 public class ResultsItem {
 
     @SerializedName("html_attributions")

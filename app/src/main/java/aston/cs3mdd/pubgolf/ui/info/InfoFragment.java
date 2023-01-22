@@ -16,7 +16,6 @@ import aston.cs3mdd.pubgolf.databinding.FragmentInformationBinding;
 public class InfoFragment extends Fragment {
 
     private FragmentInformationBinding binding;
-    TextView title, body, title1, body1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

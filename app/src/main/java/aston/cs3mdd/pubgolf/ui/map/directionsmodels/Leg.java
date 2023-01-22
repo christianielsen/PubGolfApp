@@ -1,9 +1,9 @@
 
-package aston.cs3mdd.pubgolf.ui.map.model;
+package aston.cs3mdd.pubgolf.ui.map.directionsmodels;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
+//Created using https://www.jsonschema2pojo.org/
 public class Leg {
 
     @SerializedName("distance")

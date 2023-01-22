@@ -10,671 +10,697 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
         android:text="Scorecard"
         android:textColor="@color/purple_500"
         android:textSize="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.056"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TableLayout
-        android:id="@+id/tableLayout"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="1dp">
 
-        android:layout_margin="0dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="113dp"
-        android:background="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <!--Top column-->
-        <TableRow android:background="@color/purple_700">
-
-            <TextView
-                android:layout_width="0dp"
+            <TableLayout
+                android:id="@+id/tableLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/col1"
-                android:textColor="@android:color/white"
-                android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/col2"
-                android:textColor="@android:color/white"
-                android:textSize="20sp" />
+                android:layout_margin="0dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="113dp"
+                android:background="@android:color/white"
+                app:layout_constraintBottom_toTopOf="@+id/btSave"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/col3"
-                android:textColor="@android:color/white"
-                android:textSize="20sp" />
+                <!--Top row-->
+                <TableRow android:background="@color/purple_700">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/col4"
-                android:textColor="@android:color/white"
-                android:textSize="20sp" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/col1"
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/col5"
-                android:textColor="@android:color/white"
-                android:textSize="20sp" />
-        </TableRow>
-        <!--Row 1-->
-        <TableRow android:textColor="@color/black">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/col2"
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/hole1"
-                android:textSize="16sp"
-                android:background="@drawable/line" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/col3"
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/drink1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/col4"
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/par1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:inputType="number"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/col5"
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp" />
+                </TableRow>
+                <!--Row 1-->
+                <TableRow android:textColor="@color/black">
 
-            <EditText
-                android:id="@+id/score1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:inputType="number"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/line"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/hole1"
+                        android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/rule1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
-        </TableRow>
-        <!--Row 2-->
-        <TableRow>
+                    <EditText
+                        android:id="@+id/drink1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/hole2"
-                android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/par1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/drink2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/score1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/par2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:inputType="number"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/rule1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
+                </TableRow>
+                <!--Row 2-->
+                <TableRow>
 
-            <EditText
-                android:id="@+id/score2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:inputType="number"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/hole2"
+                        android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/rule2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
-        </TableRow>
-        <!--Row 3-->
-        <TableRow>
+                    <EditText
+                        android:id="@+id/drink2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/hole3"
-                android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/par2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/drink3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/score2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/par3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:inputType="number"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/rule2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
+                </TableRow>
+                <!--Row 3-->
+                <TableRow>
 
-            <EditText
-                android:id="@+id/score3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:inputType="number"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/hole3"
+                        android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/rule3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
-        </TableRow>
-        <!--Row 4-->
-        <TableRow>
+                    <EditText
+                        android:id="@+id/drink3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/hole4"
-                android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/par3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/drink4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/score3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/par4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:inputType="number"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/rule3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
+                </TableRow>
+                <!--Row 4-->
+                <TableRow>
 
-            <EditText
-                android:id="@+id/score4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:inputType="number"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/hole4"
+                        android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/rule4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
-        </TableRow>
-        <!--Row 5-->
-        <TableRow>
+                    <EditText
+                        android:id="@+id/drink4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/hole5"
-                android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/par4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/drink5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/score4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/par5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:inputType="number"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/rule4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
+                </TableRow>
+                <!--Row 5-->
+                <TableRow>
 
-            <EditText
-                android:id="@+id/score5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:inputType="number"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/hole5"
+                        android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/rule5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
-        </TableRow>
-        <!--Row 6-->
-        <TableRow>
+                    <EditText
+                        android:id="@+id/drink5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/hole6"
-                android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/par5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/drink6"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/score5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/par6"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:inputType="number"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/rule5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
+                </TableRow>
+                <!--Row 6-->
+                <TableRow>
 
-            <EditText
-                android:id="@+id/score6"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:inputType="number"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/hole6"
+                        android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/rule6"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
-        </TableRow>
-        <!--Row 7-->
-        <TableRow>
+                    <EditText
+                        android:id="@+id/drink6"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/hole7"
-                android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/par6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/drink7"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/score6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/par7"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:inputType="number"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/rule6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
+                </TableRow>
+                <!--Row 7-->
+                <TableRow>
 
-            <EditText
-                android:id="@+id/score7"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:inputType="number"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/hole7"
+                        android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/rule7"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
-        </TableRow>
-        <!--Row 8-->
-        <TableRow>
+                    <EditText
+                        android:id="@+id/drink7"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/hole8"
-                android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/par7"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/drink8"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/score7"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/par8"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:inputType="number"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/rule7"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
+                </TableRow>
+                <!--Row 8-->
+                <TableRow>
 
-            <EditText
-                android:id="@+id/score8"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:inputType="number"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/hole8"
+                        android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/rule8"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
-        </TableRow>
-        <!--Row 9-->
-        <TableRow>
+                    <EditText
+                        android:id="@+id/drink8"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/hole9"
-                android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/par8"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/drink9"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/score8"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/par9"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:inputType="number"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/rule8"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
+                </TableRow>
+                <!--Row 9-->
+                <TableRow>
 
-            <EditText
-                android:id="@+id/score9"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:inputType="number"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/hole9"
+                        android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/rule9"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:background="@drawable/shape"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="16sp" />
-        </TableRow>
+                    <EditText
+                        android:id="@+id/drink9"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-        <!--Bottow row-->
-        <TableRow>
+                    <EditText
+                        android:id="@+id/par9"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/total"
-                android:textSize="20sp" />
+                    <EditText
+                        android:id="@+id/score9"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="20sp" />
+                    <EditText
+                        android:id="@+id/rule9"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/shape"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="16sp" />
+                </TableRow>
 
-            <TextView
-                android:id="@+id/parTotal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+                <!--Bottow row-->
+                <TableRow>
 
-            <TextView
-                android:id="@+id/scoreTotal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/total"
+                        android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"
-                android:padding="5sp"
-                android:text="@string/nothing"
-                android:textSize="20sp" />
-        </TableRow>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="20sp" />
 
-    </TableLayout>
+                    <TextView
+                        android:id="@+id/parTotal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/btSave"
-        android:layout_width="138dp"
-        android:layout_height="67dp"
-        android:layout_marginTop="72dp"
-        android:text="Save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+                    <TextView
+                        android:id="@+id/scoreTotal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="center_horizontal"
+                        android:padding="5sp"
+                        android:text="@string/nothing"
+                        android:textSize="20sp" />
+                </TableRow>
+
+            </TableLayout>
+
+            <Button
+                android:id="@+id/btSave"
+                android:layout_width="138dp"
+                android:layout_height="67dp"
+                android:layout_marginTop="56dp"
+                android:text="Save"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.058"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+
+            <Button
+                android:id="@+id/btDelete"
+                android:layout_width="138dp"
+                android:layout_height="67dp"
+                android:layout_marginTop="56dp"
+                android:text="Delete"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.941"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,6 +19,11 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import aston.cs3mdd.pubgolf.R;
 import aston.cs3mdd.pubgolf.databinding.FragmentMapBinding;
 
+/*
+* Parent fragment for MapTab and PubsTab
+* Created with the help of the answer on a stackoverflow question
+* https://stackoverflow.com/a/53959182/20435153
+* */
 public class MapFragment extends Fragment {
 
     private FragmentMapBinding binding;
@@ -34,6 +39,9 @@ public class MapFragment extends Fragment {
         return root;
     }
 
+    /*
+    * Two tabs, map and pubs tab using ViewPager to show their corresponding fragments
+    * */
     @Override
     public void onStart() {
         super.onStart();
@@ -41,10 +49,12 @@ public class MapFragment extends Fragment {
 
         viewPager = getActivity().findViewById(R.id.view_pager);
         viewPager.setAdapter(tabPager);
+        //Remove swiping feature since it activates while trying to navigate the map
         viewPager.setUserInputEnabled(false);
 
         tabLayout = getActivity().findViewById(R.id.tab_layout);
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> tab.select()).attach();
+        //Set tab names
         tabLayout.getTabAt(0).setText("Map");
         tabLayout.getTabAt(1).setText("Pubs");
     }
@@ -55,7 +65,7 @@ public class MapFragment extends Fragment {
         binding = null;
     }
 
-
+    //Tab adapter used to navigate between the two tabs
     public class TabPagerAdapter extends FragmentStateAdapter {
 
         public TabPagerAdapter(@NonNull FragmentActivity fragmentActivity) {

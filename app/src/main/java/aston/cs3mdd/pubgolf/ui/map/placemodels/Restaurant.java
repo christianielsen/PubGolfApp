@@ -1,9 +1,11 @@
-package aston.cs3mdd.pubgolf.ui.map.models;
+package aston.cs3mdd.pubgolf.ui.map.placemodels;
 
 import java.io.Serializable;
 
 public class Restaurant implements Serializable {
-
+/*
+* Restaurant model
+* */
     private String name;
     private String address;
     private String rating;

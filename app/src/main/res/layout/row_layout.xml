@@ -18,9 +18,9 @@
         android:layout_marginTop="4dp"
         android:text="TextView"
         android:textColor="@color/purple_500"
-        android:textSize="36sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintHorizontal_bias="0.049"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,7 +31,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
@@ -42,7 +42,7 @@
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:textColor="@color/purple_500"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/totalRating2"
         app:layout_constraintTop_toBottomOf="@+id/address" />
 
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="out of "
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/address" />
 
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text=" reviews"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/totalRating"
         app:layout_constraintTop_toBottomOf="@+id/address" />
 
@@ -74,17 +74,17 @@
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:textColor="@color/purple_500"
-        android:textSize="20dp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/address" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="5dp"
+        android:layout_width="14sp"
+        android:layout_height="14sp"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="13dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginEnd="0dp"
         app:layout_constraintStart_toEndOf="@+id/rating"
         app:layout_constraintTop_toBottomOf="@+id/address"
         app:srcCompat="@drawable/ic_baseline_star_24"
@@ -96,12 +96,24 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="TextView"
-        android:textSize="20dp"
         android:textColor="@color/purple_500"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.425"
+        app:layout_constraintHorizontal_bias="0.673"
         app:layout_constraintStart_toEndOf="@+id/totalRating3"
         app:layout_constraintTop_toBottomOf="@+id/address" />
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="30sp"
+        android:layout_height="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.942"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.469"
+        app:srcCompat="@drawable/baseline_arrow_forward_ios_24"
+        app:tint="@color/purple_500" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

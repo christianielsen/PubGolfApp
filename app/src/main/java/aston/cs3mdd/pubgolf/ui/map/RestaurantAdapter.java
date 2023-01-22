@@ -1,27 +1,22 @@
 package aston.cs3mdd.pubgolf.ui.map;
 
 import android.content.Context;
-import android.text.Layout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import aston.cs3mdd.pubgolf.R;
-import aston.cs3mdd.pubgolf.ui.map.models.Restaurant;
+import aston.cs3mdd.pubgolf.ui.map.placemodels.Restaurant;
 
+/*
+* Adapter class for the RecyclerView
+* */
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ViewHolder> {
     private ArrayList<Restaurant> restaurantList;
 
@@ -32,15 +27,19 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         this.restaurantClickListener = restaurantClickListener;
     }
 
+    //Interface listener for the clickable items in the recyclerview
     public interface RestaurantClickListener {
         void selectedRestaurant(Restaurant restaurant);
     }
 
+    //Change the original arraylist to the temporary arraylist
     public void filterList(ArrayList<Restaurant> filterList) {
         restaurantList = filterList;
+        //Refresh the recyclerview
         notifyDataSetChanged();
     }
 
+    //Use the layout for each item
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -48,6 +47,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         return new ViewHolder(view);
     }
 
+    //Set the data into the text views
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Restaurant model = restaurantList.get(position);
@@ -60,7 +60,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                restaurantClickListener.selectedRestaurant(restaurantList.get(position));
+                restaurantClickListener.selectedRestaurant(restaurantList.get(holder.getBindingAdapterPosition()));
             }
         });
     }

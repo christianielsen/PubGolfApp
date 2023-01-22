@@ -1,17 +1,13 @@
 package aston.cs3mdd.pubgolf.ui.map;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
-import android.location.LocationRequest;
 import android.os.Bundle;
 
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Log;
@@ -32,6 +28,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.CancellationTokenSource;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,12 +40,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import aston.cs3mdd.pubgolf.R;
-import aston.cs3mdd.pubgolf.ui.map.model.Directions;
-import aston.cs3mdd.pubgolf.ui.map.model.EndLocation;
-import aston.cs3mdd.pubgolf.ui.map.model.Route;
-import aston.cs3mdd.pubgolf.ui.map.model.StartLocation;
-import aston.cs3mdd.pubgolf.ui.map.model.Step;
-import aston.cs3mdd.pubgolf.ui.map.models.Restaurant;
+import aston.cs3mdd.pubgolf.ui.map.directionsmodels.Directions;
+import aston.cs3mdd.pubgolf.ui.map.directionsmodels.EndLocation;
+import aston.cs3mdd.pubgolf.ui.map.directionsmodels.Route;
+import aston.cs3mdd.pubgolf.ui.map.directionsmodels.StartLocation;
+import aston.cs3mdd.pubgolf.ui.map.directionsmodels.Step;
+import aston.cs3mdd.pubgolf.ui.map.placemodels.Restaurant;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -61,26 +58,24 @@ public class SelectedPubFragment extends Fragment implements OnMapReadyCallback,
     private Location mCurrentLocation;
     Button btTravel, btBack;
     private GoogleMap mMap;
-    Restaurant restaurant;
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private static final String ARG_PARAM3 = "param3";
-    private String mParam1;
-    private String mParam2;
-    private String mParam3;
+    private static final String ARG_rName = "name";
+    private static final String ARG_rLat = "lat";
+    private static final String ARG_rLng = "lng";
+    private String rName;
+    private String rLat;
+    private String rLng;
 
-    ViewPager2 viewPager;
 
     public SelectedPubFragment() {
         // Required empty public constructor
     }
 
-    public static SelectedPubFragment newInstance(String param1, String param2, String param3) {
+    public static SelectedPubFragment newInstance(String rName, String rLat, String rLng) {
         SelectedPubFragment fragment = new SelectedPubFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        args.putString(ARG_PARAM3, param3);
+        args.putString(ARG_rName, rName);
+        args.putString(ARG_rLat, rLat);
+        args.putString(ARG_rLng, rLng);
 
         fragment.setArguments(args);
         return fragment;
@@ -90,21 +85,14 @@ public class SelectedPubFragment extends Fragment implements OnMapReadyCallback,
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-            mParam3 = getArguments().getString(ARG_PARAM3);
+            rName = getArguments().getString(ARG_rName);
+            rLat = getArguments().getString(ARG_rLat);
+            rLng = getArguments().getString(ARG_rLng);
         }
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         CancellationTokenSource cancellationToken = new CancellationTokenSource();
@@ -134,9 +122,10 @@ public class SelectedPubFragment extends Fragment implements OnMapReadyCallback,
         supportMapFragment.getMapAsync(this);
 
         TextView tvSelectedPub = view.findViewById(R.id.tvSelectedPub);
-        tvSelectedPub.setText(mParam1);
+        tvSelectedPub.setText(rName);
 
         TextView tvDistance = view.findViewById(R.id.tvDistance);
+        TextView tvDuration = view.findViewById(R.id.tvDuration);
 
         btTravel = view.findViewById(R.id.btTravel);
         btTravel.setOnClickListener(new View.OnClickListener() {
@@ -155,8 +144,8 @@ public class SelectedPubFragment extends Fragment implements OnMapReadyCallback,
                     String locLat = String.valueOf(mCurrentLocation.getLatitude());
                     String locLng = String.valueOf(mCurrentLocation.getLongitude());
                     String origin = locLat + "," + locLng;
-                    String placeLat = mParam2;
-                    String placeLng = mParam3;
+                    String placeLat = rLat;
+                    String placeLng = rLng;
                     String destination = placeLat + "," + placeLng;
                     String mode = "walking";
                     String key = getResources().getString(R.string.API_KEY);
@@ -167,44 +156,37 @@ public class SelectedPubFragment extends Fragment implements OnMapReadyCallback,
                     call.enqueue(new Callback<Directions>() {
                         @Override
                         public void onResponse(Call<Directions> call, Response<Directions> response) {
-                            ArrayList<LatLng> routeList = new ArrayList<LatLng>();
-                            Route route = response.body().getRoutes().get(0);
-                            if (response.body().getRoutes().size() > 0) {
-                                List<Step> steps = route.getLegs().get(0).getSteps();
-                                Step step;
-                                StartLocation start;
-                                EndLocation end;
-                                String polyline;
-                                for (int i = 0; i < steps.size(); i++) {
-                                    step = steps.get(i);
-                                    start = step.getStartLocation();
-                                    routeList.add((new LatLng(start.getLat(), start.getLng())));
-                                    polyline = step.getPolyline().getPoints();
-                                    List<LatLng> decodelist = PolyUtil.decode(polyline);
-                                    routeList.addAll(decodelist);
-                                    end = step.getEndLocation();
-                                    routeList.add(new LatLng(end.getLat(), end.getLng()));
+                            /*
+                             * Polyline drawer from https://www.youtube.com/watch?v=xl0GwkLNpNI&list=PLgCYzUzKIBE-SZUrVOsbYMzH7tPigT3gi&index=20
+                             * Modified for my project
+                             * */
+                            for (Route route : response.body().getRoutes()) {
+                                //Decode the polyline using Android Maps Util's PolyUtil decoder
+                                ArrayList<LatLng> decodedPath = (ArrayList<LatLng>) PolyUtil.decode(route.getOverviewPolyline().getPoints());
+                                ArrayList<LatLng> newDecodedPath = new ArrayList<>();
 
+                                for (LatLng latLng : decodedPath) {
+                                    newDecodedPath.add(new LatLng(latLng.latitude, latLng.longitude));
                                 }
-                            }
-                            if (routeList.size() > 0) {
-                                PolylineOptions polyline = new PolylineOptions()
-                                        .width(10)
-                                        .color(Color.RED);
-                                for (int i = 0; i < routeList.size(); i++) {
-                                    polyline.add(routeList.get(i));
-                                }
+                                //Draw polyline on map
+                                PolylineOptions polyline = new PolylineOptions();
+                                polyline.addAll(newDecodedPath);
+                                polyline.color(Color.RED);
+                                polyline.width(10);
+                                mMap.addPolyline(polyline);
+                                //Place map markers on user and place locations
                                 LatLng userLocation = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
-                                LatLng rLocation = new LatLng(Double.valueOf(mParam2), Double.valueOf(mParam3));
+                                LatLng rLocation = new LatLng(Double.valueOf(rLat), Double.valueOf(rLng));
                                 mMap.addMarker(new MarkerOptions()
                                         .position(userLocation)
                                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                                         .title("Your Location"));
-                                mMap.addMarker(new MarkerOptions().position(rLocation).title(mParam1));
+                                mMap.addMarker(new MarkerOptions().position(rLocation).title(rName));
                                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 15));
-                                mMap.addPolyline(polyline);
                             }
+                            String duration = response.body().getRoutes().get(0).getLegs().get(0).getDuration().getText();
                             String distance = response.body().getRoutes().get(0).getLegs().get(0).getDistance().getText();
+                            tvDuration.setText(duration);
                             tvDistance.setText(distance);
                         }
 
@@ -219,7 +201,7 @@ public class SelectedPubFragment extends Fragment implements OnMapReadyCallback,
             }
         });
 
-
+        //Remove the fragment on click to go back to recyclerview
         btBack = view.findViewById(R.id.btBack);
 
         btBack.setOnClickListener(new View.OnClickListener() {
@@ -235,17 +217,9 @@ public class SelectedPubFragment extends Fragment implements OnMapReadyCallback,
     public void onMapReady(GoogleMap googleMap) {
         this.mMap = googleMap;
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         mMap.setMyLocationEnabled(true);
-        mMap.getUiSettings().setZoomControlsEnabled(true);
     }
 
 }
